@@ -12,7 +12,8 @@
     "test:unit:dev": "cypress open --component"
   },
   "dependencies": {
-    "vue": "^3.2.47"
+    "vue": "^3.2.47",
+    "vuetify": "^3.2.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
