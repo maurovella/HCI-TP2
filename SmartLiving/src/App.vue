@@ -1,29 +1,11 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
-import { ref } from 'vue'
 import 'vuetify/styles'
-
-const selection = ref([]);
-const items = [
-    {
-        src: 'backgrounds/bg.jpg',
-    },
-    {
-        src: 'backgrounds/md.jpg',
-    },
-    {
-        src: 'backgrounds/bg-2.jpg',
-    },
-    {
-        src: 'backgrounds/md2.jpg',
-    },
-];
 </script>
 
 <template>
     <header>
         <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125"/>
-
         <div class="wrapper">
             <HelloWorld msg="SmartLiving" />
         </div>
@@ -31,7 +13,7 @@ const items = [
 
     <main>
         <v-item-group mandatory>
-            <v-container>
+            <v-container class="example">
                 <v-row>
                     <v-col
                         v-for="n in 3"
@@ -41,25 +23,43 @@ const items = [
                     >
                         <v-item v-slot="{ isSelected, toggle }">
                             <v-card
-                                :color="isSelected ? 'primary' : ''"
-                                class="d-flex align-center"
-                                dark
-                                height="200"
-                                @click="toggle"
-                                href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"
+                                    class="mx-auto"
+                                    max-width="400"
                             >
-                                <v-scroll-y-transition>
-                                    <div
-                                        class="text-h3 flex-grow-1 text-center"
-                                    >
-                                        {{ isSelected ? 'Ja PT' : 'Click Me!' }}
+                                <v-img
+                                        class="align-end text-white"
+                                        height="200"
+                                        src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                                        cover
+                                >
+                                    <v-card-title>Nombre Residencia</v-card-title>
+                                </v-img>
+                                <v-card-text>
+                                    <div>Descripcion residencia</div>
+                                </v-card-text>
+
+                                <v-card-actions>
+                                    <v-btn color="orange">
+                                        Edit
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+
+                                    <v-btn
+                                            icon='mdi-chevron-up'
+                                    ></v-btn>
+                                </v-card-actions>
+
+                                <v-expand-transition>
+                                    <div v-show="show">
+                                        <v-divider></v-divider>
+
+                                        <v-card-text>
+                                            I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.
+                                        </v-card-text>
                                     </div>
-                                </v-scroll-y-transition>
+                                </v-expand-transition>
                             </v-card>
                         </v-item>
-                        <div class="text-h5 flex-grow-1 text-center">
-                            Nombre Residencia
-                        </div>
                     </v-col>
                 </v-row>
             </v-container>
@@ -94,4 +94,5 @@ header {
         flex-wrap: wrap;
     }
 }
+
 </style>
