@@ -1,6 +1,11 @@
+<script setup>
+import HelloWorld from '../components/HelloWorld.vue'
+import 'vuetify/styles'
+</script>
+
 <template>
     <header>
-        <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125"/>
+        <img alt="Vue logo" class="logo" src="../assets/logo.svg" width="125" height="125"/>
         <div class="wrapper">
             <HelloWorld msg="SmartLiving" />
         </div>
@@ -11,10 +16,10 @@
             <v-container class="example">
                 <v-row>
                     <v-col
-                        v-for="n in 3"
-                        :key="n"
-                        cols="12"
-                        md="4"
+                            v-for="n in 3"
+                            :key="n"
+                            cols="12"
+                            md="4"
                     >
                         <v-item v-slot="{ isSelected, toggle }">
                             <v-card
