@@ -42,6 +42,7 @@
                                             <v-text-field
                                                 label="Nuevo nombre de la habitacion"
                                                 required
+                                                clearable
                                             ></v-text-field>
                                         </v-col>
                                         <v-col

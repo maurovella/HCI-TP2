@@ -12,6 +12,7 @@
     "test:unit:dev": "cypress open --component"
   },
   "dependencies": {
+    "pinia": "^2.0.35",
     "vue": "^3.2.47",
     "vue-router": "4",
     "vuetify": "^3.2.1"
