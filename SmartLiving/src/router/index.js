@@ -5,8 +5,9 @@ import LandingPage from '../views/LandingPage.vue';
 const router = createRouter({
     history: createWebHashHistory(import.meta.env.BASE_URL),
     routes: [
-        {path: '/', component: LandingPage},
-        {path: '/r', component: ResidenceView},
+        {path: '/', name: 'Home', component: LandingPage},
+        {path: '/r', name: 'Residence', component: ResidenceView},
+
     ]
 });
  export default router;
