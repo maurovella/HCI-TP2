@@ -28,12 +28,10 @@ export default defineComponent({
     data() {
         return {
             rooms: [
-                { name: "Mi Cuarto", type: "Dormitorio" },
-                { name: "Baño1", type: "Baño" },
-                { name: "Quincho", type: "Jardin" }
+
             ]
         };
-    }
+    },
 });
 
 </script>
