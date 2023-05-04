@@ -1,17 +1,32 @@
 <template>
-    <v-container>
-        <div>
-            <!--<router-link class="logo ma-0 pa-0 pr-10" :to="{ name: 'LandingPage' }">SmartLiving</router-link>!-->
-            <v-container>
-                <v-tabs v-model="tab" background-color="primary">
-                    <v-tab>Home</v-tab>
-                    <v-tab>Rooms</v-tab>
-                </v-tabs>
-            </v-container>
-        </div>
-
-
-    </v-container>
+    <v-sheet class="nav-container" color="primary">
+        <v-container fluid class="nav-content">
+            <v-tabs class="text-left" v-model="tab" background-color="primary">
+                <v-tab class="tab px-15" :to="{name: 'Home'}" value="home">Inicio</v-tab>
+                <v-tab class="tab px-15" :to="{name: 'Residence'}" value="rooms">Habitaciones</v-tab>
+                <v-tab class="tab px-15" value="devices">Dispositivos</v-tab>
+                <v-tab class="tab px-15" value="routines">Rutinas</v-tab>
+            </v-tabs>
+        </v-container>
+    </v-sheet>
+  <!--
+  <v-sheet class="nav-container py-2" color="primary">
+    <div class="text-left justify-space-around">
+        <v-menu open-on-hover>
+            <template v-slot:activator="{ props }">
+                <v-btn color="primary" v-bind="props">
+                    Activator slot
+                </v-btn>
+            </template>
+            <v-list>
+                <v-list-item v-for="(item, index) in items" :key="index" :value="index">
+                    <v-list-item-title>{{ item.title }}</v-list-item-title>
+                </v-list-item>
+            </v-list>
+        </v-menu>
+    </div>
+  </--v-sheet>
+  -->
 </template>
 
 <style>
@@ -80,6 +95,6 @@
 import { RouterLink } from 'vue-router';
 import { ref } from 'vue';
 
-const tab = ref('LandingPage');
+const tab = ref('Home');
 
 </script>
