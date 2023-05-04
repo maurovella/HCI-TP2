@@ -16,10 +16,10 @@
                     src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
                     cover
                 >
-                    <v-card-title>Nombre Habitacion</v-card-title>
+                    <v-card-title>{{ name }}</v-card-title>
                 </v-img>
                 <v-card-text>
-                    <div>Descripcion habitacion</div>
+                    <div>{{ type }}</div>
                 </v-card-text>
                 <v-expand-transition>
                     <v-dialog
@@ -98,5 +98,9 @@ export default {
     data: () => ({
         dialog: false
     }),
+    props: {
+        name: String,
+        type: String
+    }
 }
 </script>
