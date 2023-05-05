@@ -1,6 +1,7 @@
 <template>
     <v-item-group mandatory>
         <v-container>
+            <DeviceDialogue/>
             <RoomDialogue/>
             <v-row>
                 <v-col
@@ -21,10 +22,11 @@
 <script>
 import RoomCard from "@/components/RoomCard.vue";
 import RoomDialogue from "@/components/RoomDialogue.vue";
+import DeviceDialogue from "@/components/DeviceDialogue.vue";
 import {defineComponent} from "vue";
 
 export default defineComponent({
-    components: { RoomDialogue, RoomCard },
+    components: { RoomDialogue, RoomCard, DeviceDialogue },
     data() {
         return {
             rooms: [
