@@ -1,13 +1,14 @@
 <template>
     <v-container>
         <v-btn
-            color="light-blue-darken-4"
+            color="black"
             href="https://open.spotify.com/track/5AUByBgSqf3a9Sgtp142D2?si=943f4584f73e4ede"
-            height="350"
+            height="280"
+            width="300"
         >
             <v-card
                 class="mx-auto"
-                max-width="400"
+                width="300"
                 elevation="3"
             >
                 <v-img

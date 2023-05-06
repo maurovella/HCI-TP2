@@ -1,14 +1,16 @@
 <script>
 import ResidenceCard from "@/components/ResidenceCard.vue";
+import DeviceCard from "@/components/DeviceCard.vue";
+import RoomCard from "@/components/RoomCard.vue";
 
 export default {
-    components: {ResidenceCard},
+    components: {RoomCard, DeviceCard, ResidenceCard},
     data: () => ({
         habitacionDialog: false,
         rutinaDialog: false,
         form: false,
         nombre_habitacion: null,
-        type: null
+        type: null,
     }),
 
     methods: {
@@ -53,7 +55,7 @@ export default {
                     cols="12"
                     md="4"
                 >
-                    <ResidenceCard/> <!-- Cambiar por device card !-->
+                    <RoomCard/>
                 </v-col>
             </v-row>
         </v-container>
@@ -69,7 +71,8 @@ export default {
                         cols="12"
                         md="4"
                 >
-                  <ResidenceCard/>
+                  <RoomCard :name="name"
+                            :type="type"/>
                 </v-col>
             </v-row>
         </v-container>
@@ -84,7 +87,7 @@ export default {
                     cols="12"
                     md="4"
                 >
-                    <ResidenceCard/>
+                    <RoomCard/>
                 </v-col>
             </v-row>
         </v-container>
@@ -161,7 +164,7 @@ export default {
                     cols="12"
                     md="4"
                 >
-                    <ResidenceCard/>
+                    <RoomCard/>
                 </v-col>
             </v-row>
         </v-container>
