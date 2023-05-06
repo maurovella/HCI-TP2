@@ -1,14 +1,15 @@
 <template>
-    <v-sheet class="nav-container" color="primary">
-        <v-container fluid class="nav-content">
-            <v-tabs class="text-left" v-model="tab" background-color="primary">
-                <v-tab class="tab px-15" :to="{name: 'Home'}" value="home">Inicio</v-tab>
-                <v-tab class="tab px-15" :to="{name: 'Residence'}" value="rooms">Habitaciones</v-tab>
-                <v-tab class="tab px-15" value="devices">Dispositivos</v-tab>
-                <v-tab class="tab px-15" value="routines">Rutinas</v-tab>
-            </v-tabs>
-        </v-container>
-    </v-sheet>
+        <v-sheet class="nav-container" color="primary">
+            <v-container fluid class="nav-content">
+                <img alt="Vue Logo" src="../assets/logo.jpeg" width="50">
+                <v-tabs class="text-left" v-model="tab" background-color="primary">
+                    <v-tab class="tab px-15" :to="{name: 'Home'}" value="home">Inicio</v-tab>
+                    <v-tab class="tab px-15" :to="{name: 'Residence'}" value="rooms">Habitaciones</v-tab>
+                    <v-tab class="tab px-15" value="devices">Dispositivos</v-tab>
+                    <v-tab class="tab px-15" value="routines">Rutinas</v-tab>
+                </v-tabs>
+            </v-container>
+        </v-sheet>
   <!--
   <v-sheet class="nav-container py-2" color="primary">
     <div class="text-left justify-space-around">
