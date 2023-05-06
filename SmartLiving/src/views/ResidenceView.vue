@@ -1,45 +1,95 @@
+<script>
+import ResidenceCard from "@/components/ResidenceCard.vue";
+import DeviceCard from "@/components/DeviceCard.vue";
+import RoomCard from "@/components/RoomCard.vue";
+import RoomDialogue from "@/components/RoomDialogue.vue";
+import RoutineDialogue from "@/components/RoutineDialogue.vue";
+
+export default {
+    components: {RoutineDialogue, RoomDialogue, RoomCard, DeviceCard, ResidenceCard}
+}
+</script>
+
 <template>
     <v-item-group mandatory>
         <v-container>
-            <DeviceDialogue/>
-            <RoomDialogue/>
+            <h2>Favoritos</h2>
             <v-row>
                 <v-col
-                        v-for="(room, index) in rooms"
-                        :key="index"
-                        cols="12"
-                        md="4"
+                    v-for="n in 5"
+                    :key="n"
+                    cols="12"
+                    md="4"
                 >
-                    <RoomCard :name="room.name"
-                              :type="room.type"/>
+                    <RoomCard/>
                 </v-col>
             </v-row>
-
         </v-container>
     </v-item-group>
+
+    <v-item-group mandatory>
+        <v-container>
+            <h2>Recientes</h2>
+            <v-row>
+                <v-col
+                    v-for="n in 3"
+                    :key="n"
+                    cols="12"
+                    md="4"
+                >
+                    <RoomCard :name="name"
+                              :type="type"/>
+                </v-col>
+            </v-row>
+        </v-container>
+    </v-item-group>
+    <v-item-group mandatory>
+        <v-container>
+            <h2>Habitaciones</h2>
+            <v-row>
+                <v-col
+                    v-for="n in 3"
+                    :key="n"
+                    cols="12"
+                    md="4"
+                >
+                    <RoomCard/>
+                </v-col>
+            </v-row>
+        </v-container>
+    </v-item-group>
+    <RoomDialogue/>
+    <v-item-group mandatory>
+        <v-container>
+            <h2>Rutinas</h2>
+            <v-row>
+                <v-col
+                    v-for="n in 3"
+                    :key="n"
+                    cols="12"
+                    md="4"
+                >
+                    <RoomCard/>
+                </v-col>
+            </v-row>
+        </v-container>
+    </v-item-group>
+    <RoutineDialogue/>
 </template>
 
-<script>
-import RoomCard from "@/components/RoomCard.vue";
-import RoomDialogue from "@/components/RoomDialogue.vue";
-import DeviceDialogue from "@/components/DeviceDialogue.vue";
-import {defineComponent} from "vue";
+<style >
+body{
+    background-color: #4c4592;
+}
+header {
+    line-height: 1.5;
+}
 
-export default defineComponent({
-    components: { RoomDialogue, RoomCard, DeviceDialogue },
-    data() {
-        return {
-            rooms: [
-
-            ]
-        };
-    },
-});
-
-</script>
-
-
-<style>
-
+@media (min-width: 1024px) {
+    header {
+        display: flex;
+        place-items: center;
+        padding-right: calc(var(--section-gap) / 2);
+    }
+}
 </style>
-

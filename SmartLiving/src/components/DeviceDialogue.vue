@@ -4,15 +4,15 @@
             <v-dialog v-model="dialog" persistent max-width="1024">
                 <template v-slot:activator="{ props }">
                     <v-btn color="primary" v-bind="props">
-                        Add Device
+                        Agregar Dispositivo
                     </v-btn>
                 </template>
-                <v-card class="mx-auto px-6 py-8" max-width="344">
+                <v-card class="mx-auto px-6 py-8">
                     <v-form v-model="form" @submit.prevent="onSubmit">
                         <v-text-field
                             v-model="nombre_disp"
                             :rules="[required]"
-                            class="mb-2"
+                            class="messi"
                             clearable
                             label="Nombre del dispositivo*"
                             counter
@@ -31,12 +31,12 @@
                         <v-btn
                             :loading="loader"
                             :disabled="!form"
-                            block
                             color="blue-darken-1"
                             size="large"
                             type="submit"
                             variant="text"
                             @click="loader = !loader"
+                            style="float: right"
                         >
                             Conectar
                         </v-btn>
@@ -57,6 +57,7 @@
                             size="large"
                             variant="text"
                             @click="onCancel"
+                            style="float: right"
                         >
                             Cancelar
                         </v-btn>
@@ -108,3 +109,9 @@ export default {
     },
 };
 </script>
+
+<style>
+.messi{
+    width: 600px;
+}
+</style>
