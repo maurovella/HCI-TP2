@@ -25,7 +25,7 @@
                             Iniciar
                         </v-col>
                         <v-col cols="auto" sm="9">
-                            <v-btn icon="mdi-heart" style="float: right"/>
+                            <v-btn :icon="isSelected ? 'mdi-heart' : 'mdi-heart-outline'" @click="isSelected=!isSelected" style="float: right"/>
                         </v-col>
                         <v-col cols="auto">
                             <v-btn icon="mdi-delete"/>
@@ -89,7 +89,8 @@
 export default {
     data: () => ({
         toggle: null,
-        dialog:false
+        dialog:false,
+        isSelected: false
     }),
 }
 
