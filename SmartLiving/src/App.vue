@@ -1,10 +1,8 @@
 <template>
-    <NavigationBar/>
-    <Vaccum/>
-    <RouterView/>
+    <AireView/>
 </template>
 
 <script setup>
 import NavigationBar from "./components/NavigationBar.vue";
-import Vaccum from "./devices/Vaccum.vue";
+import AireView from "@/views/AireView.vue";
 </script>
