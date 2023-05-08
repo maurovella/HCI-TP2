@@ -4,77 +4,113 @@ import DeviceCard from "@/components/DeviceCard.vue";
 import RoomCard from "@/components/RoomCard.vue";
 import AddRoom from "@/components/AddRoom.vue";
 import AddRoutine from "@/components/AddRoutine.vue";
+import Title from "@/components/Title.vue";
 
 export default {
-    components: {AddRoom, AddRoutine, RoomCard, DeviceCard, ResidenceCard}
+    components: {Title, AddRoom, AddRoutine, RoomCard, DeviceCard, ResidenceCard}
 }
 </script>
 
 <template>
-    <v-item-group mandatory>
-        <v-container>
-            <h2>Favoritos</h2>
-            <v-row>
-                <v-col
-                    v-for="n in 5"
-                    :key="n"
-                    cols="12"
-                    md="4"
-                >
+    <v-container>
+        <h1>Favoritos</h1>
+        <v-sheet class="mx-sm-2 my-sm-5" border rounded color="primary">
+            <v-slide-group show-arrows>
+                <v-slide-group-item class="ma-5 d-flex">
                     <RoomCard/>
-                </v-col>
-            </v-row>
-        </v-container>
-    </v-item-group>
+                </v-slide-group-item>
+                <v-slide-group-item class="ma-5 d-flex">
+                    <RoomCard/>
+                </v-slide-group-item>
+                <v-slide-group-item class="ma-5 d-flex">
+                    <RoomCard/>
+                </v-slide-group-item>
+                <v-slide-group-item class="ma-5 d-flex">
+                    <RoomCard/>
+                </v-slide-group-item>
+                <v-slide-group-item class="ma-5 d-flex">
+                    <RoomCard/>
+                </v-slide-group-item>
+                <v-slide-group-item class="ma-5 d-flex">
+                    <RoomCard/>
+                </v-slide-group-item>
+            </v-slide-group>
+        </v-sheet>
 
-    <v-item-group mandatory>
-        <v-container>
-            <h2>Recientes</h2>
-            <v-row>
-                <v-col
-                    v-for="n in 3"
-                    :key="n"
-                    cols="12"
-                    md="4"
-                >
-                    <RoomCard :name="name"
-                              :type="type"/>
-                </v-col>
-            </v-row>
-        </v-container>
-    </v-item-group>
-    <v-item-group mandatory>
-        <v-container>
-            <h2>Habitaciones</h2>
-            <v-row>
-                <v-col
-                    v-for="n in 3"
-                    :key="n"
-                    cols="12"
-                    md="4"
-                >
+
+        <h1>Recientes</h1>
+        <v-sheet class="mx-sm-2 my-sm-5" border rounded color="primary">
+            <v-slide-group show-arrows>
+                <v-slide-group-item class="ma-5 d-flex">
                     <RoomCard/>
-                </v-col>
-            </v-row>
-        </v-container>
-    </v-item-group>
-    <AddRoom class="add"/>
-    <v-item-group mandatory>
-        <v-container>
-            <h2>Rutinas</h2>
-            <v-row>
-                <v-col
-                    v-for="n in 3"
-                    :key="n"
-                    cols="12"
-                    md="4"
-                >
+                </v-slide-group-item>
+                <v-slide-group-item class="ma-5 d-flex">
                     <RoomCard/>
-                </v-col>
-            </v-row>
-        </v-container>
-    </v-item-group>
-    <AddRoutine class="add"/>
+                </v-slide-group-item>
+                <v-slide-group-item class="ma-5 d-flex">
+                    <RoomCard/>
+                </v-slide-group-item>
+                <v-slide-group-item class="ma-5 d-flex">
+                    <RoomCard/>
+                </v-slide-group-item>
+                <v-slide-group-item class="ma-5 d-flex">
+                    <RoomCard/>
+                </v-slide-group-item>
+                <v-slide-group-item class="ma-5 d-flex">
+                    <RoomCard/>
+                </v-slide-group-item>
+            </v-slide-group>
+        </v-sheet>
+
+        <h1>Habitaciones</h1>
+        <v-sheet class="mx-sm-2 my-sm-5" border rounded color="primary">
+            <v-slide-group show-arrows>
+                <v-slide-group-item class="ma-5 d-flex">
+                    <RoomCard/>
+                </v-slide-group-item>
+                <v-slide-group-item class="ma-5 d-flex">
+                    <RoomCard/>
+                </v-slide-group-item>
+                <v-slide-group-item class="ma-5 d-flex">
+                    <RoomCard/>
+                </v-slide-group-item>
+                <v-slide-group-item class="ma-5 d-flex">
+                    <RoomCard/>
+                </v-slide-group-item>
+                <v-slide-group-item class="ma-5 d-flex">
+                    <RoomCard/>
+                </v-slide-group-item>
+                <v-slide-group-item class="ma-5 d-flex">
+                    <RoomCard/>
+                </v-slide-group-item>
+            </v-slide-group>
+        </v-sheet>
+        <AddRoom class="add"/>
+        <h1>Rutinas</h1>
+        <v-sheet class="mx-sm-2 my-sm-5" border rounded color="primary">
+            <v-slide-group show-arrows>
+                <v-slide-group-item class="ma-5 d-flex">
+                    <RoomCard/>
+                </v-slide-group-item>
+                <v-slide-group-item class="ma-5 d-flex">
+                    <RoomCard/>
+                </v-slide-group-item>
+                <v-slide-group-item class="ma-5 d-flex">
+                    <RoomCard/>
+                </v-slide-group-item>
+                <v-slide-group-item class="ma-5 d-flex">
+                    <RoomCard/>
+                </v-slide-group-item>
+                <v-slide-group-item class="ma-5 d-flex">
+                    <RoomCard/>
+                </v-slide-group-item>
+                <v-slide-group-item class="ma-5 d-flex">
+                    <RoomCard/>
+                </v-slide-group-item>
+            </v-slide-group>
+        </v-sheet>
+        <AddRoutine class="add"/>
+    </v-container>
 </template>
 
 <style >

@@ -1,7 +1,7 @@
 <template>
     <v-btn
         color="black"
-        href="https://open.spotify.com/track/5AUByBgSqf3a9Sgtp142D2?si=943f4584f73e4ede"
+        href=""
         height="280"
         width="300"
     >
