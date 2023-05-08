@@ -2,11 +2,11 @@
 import ResidenceCard from "@/components/ResidenceCard.vue";
 import DeviceCard from "@/components/DeviceCard.vue";
 import RoomCard from "@/components/RoomCard.vue";
-import RoomDialogue from "@/components/RoomDialogue.vue";
-import RoutineDialogue from "@/components/RoutineDialogue.vue";
+import AddRoom from "@/components/AddRoom.vue";
+import AddRoutine from "@/components/AddRoutine.vue";
 
 export default {
-    components: {RoutineDialogue, RoomDialogue, RoomCard, DeviceCard, ResidenceCard}
+    components: {AddRoom, AddRoutine, RoomCard, DeviceCard, ResidenceCard}
 }
 </script>
 
@@ -58,7 +58,7 @@ export default {
             </v-row>
         </v-container>
     </v-item-group>
-    <RoomDialogue/>
+    <AddRoom class="add"/>
     <v-item-group mandatory>
         <v-container>
             <h2>Rutinas</h2>
@@ -74,7 +74,7 @@ export default {
             </v-row>
         </v-container>
     </v-item-group>
-    <RoutineDialogue/>
+    <AddRoutine class="add"/>
 </template>
 
 <style >
@@ -91,5 +91,10 @@ header {
         place-items: center;
         padding-right: calc(var(--section-gap) / 2);
     }
+}
+
+.add{
+    position: relative;
+    margin-top: 30px;
 }
 </style>

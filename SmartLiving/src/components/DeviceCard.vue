@@ -22,17 +22,18 @@ export default {
 <template>
     <v-card class="mx-auto pa-2 px-1">
         <v-img
-            class="align-end text-white"
+            class="text-right pa-2"
             height="200"
             src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
             cover
         >
-            <v-btn class="" @click="show = !show">
-                <v-icon v-if="show">mdi-volume-off</v-icon>
-                <v-icon v-else>mdi-volume-high</v-icon>
-            </v-btn>
-            <v-card-title>Nombre Dispositivo</v-card-title>
+            <div class="image-overlay">
+                <v-btn :icon="show ? 'mdi-heart' : 'mdi-heart-outline'" @click="show=!show"/>
+            </div>
         </v-img>
+        <v-card-text class="text-center">
+            Nombre Dispositivo
+        </v-card-text>
     </v-card>
 </template>
 
@@ -43,5 +44,16 @@ path {
 
 .starred path{
     fill: #ffd100;
+}
+
+.image-overlay {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
+.text-center {
+    text-align: center;
+    margin-top: auto;
 }
 </style>

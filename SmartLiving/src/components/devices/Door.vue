@@ -12,7 +12,7 @@
             </template>
             <v-container class="container">
                 <v-card class="image-container" style="display: flex; flex-direction: row-reverse;">
-                    <img class="imagen" alt="Closed Door" src="../assets/ClosedDoor.png" height="150">
+                    <img class="imagen" alt="Closed Door" src="../../assets/ClosedDoor.png" height="150">
                     <v-container class="button-container">
 
                         <v-row>

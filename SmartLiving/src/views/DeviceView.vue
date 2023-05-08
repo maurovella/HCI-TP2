@@ -1,9 +1,10 @@
 <script>
 import DeviceCard from "@/components/DeviceCard.vue"
 import Title from "@/components/Title.vue";
+import RoomCard from "@/components/RoomCard.vue";
 
 export default {
-    components: {Title, DeviceCard},
+    components: {RoomCard, Title, DeviceCard},
 
 }
 </script>
@@ -13,13 +14,13 @@ export default {
     <v-sheet class="mx-sm-2 my-sm-5" border rounded color="primary">
         <v-slide-group show-arrows>
             <v-slide-group-item>
-                <DeviceCard/>
+                <RoomCard/>
             </v-slide-group-item>
             <v-slide-group-item>
-                <DeviceCard/>
+                <RoomCard/>
             </v-slide-group-item>
             <v-slide-group-item>
-                <DeviceCard/>
+                <RoomCard/>
             </v-slide-group-item>
             <v-slide-group-item>
                 <DeviceCard/>
