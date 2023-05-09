@@ -70,6 +70,9 @@
 
 <script>
 
+import {Room, RoomApi, RoomMeta} from "@/api/room";
+import {useRoomStore} from "@/stores/roomStore";
+//const roomStore = useRoomStore();
 export default {
     data: () => ({
         dialog: false,
