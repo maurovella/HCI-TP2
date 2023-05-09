@@ -104,16 +104,13 @@
 }
 </style>
 
-<script>
-
-export default {
-    data: () => ({
-        dialog: false,
-        show:false
-    }),
-    props: {
-        name: String,
-        type: String
-    }
-}
+<script setup>
+import { ref } from "vue";
+const dialog = ref(false);
+const show = ref(false);
+const props = defineProps({
+  name: String,
+  type: String
+});
 </script>
+

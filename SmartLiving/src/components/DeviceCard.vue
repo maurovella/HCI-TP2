@@ -1,22 +1,11 @@
-<script>
-import StarOn from "@/assets/star-on.svg";
-import StarOff from "@/assets/star-off.svg";
-
-export default {
-    data: () => ({
-        show: false,
-    }),
-
-    components: StarOn, StarOff,
-
-    name: 'FavStar',
-    props: {
-        starred: {
-            type: Boolean,
-            default: false,
-        }
+<script setup>
+const show = ref(false);
+const starred = ref(false);
+const props = defineProps({
+        name: String,
+        type: Boolean
     }
-}
+);
 </script>
 
 <template>

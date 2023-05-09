@@ -68,46 +68,38 @@
     </v-container>
 </template>
 
-<script>
-export default {
-    data() {
-        return {
-            dialog: false,
-            form: null,
-            nombre_disp: null,
-            loader: null,
-            type: null,
-        };
-    },
-    methods: {
-        onSubmit() {
-            this.loader = true;
-            setTimeout(() => {
-                this.loader = false;
+<script setup>
+import { ref } from 'vue';
 
-                this.nombre_disp = null;
-                this.type = null
-            }, 3000);
+const dialog = ref(false);
+const form = ref(null);
+const nombre_disp = ref(null);
+const loader = ref(null);
+const type = ref(null);
 
-        },
-        onCancel() {
-            this.dialog = false;
-            this.nombre_disp = null;
-            this.type = null
-        },
-        required (v) {
-            return !!v || 'Field is required'
-        }
-    },
-    watch: {
-        loader(val) {
-            if (!val) {
-                this.form = null;
-                this.dialog = false;
-            }
-        },
-    },
+const onSubmit = () => {
+  loader.value = true;
+  setTimeout(() => {
+    loader.value = false;
+    nombre_disp.value = null;
+    type.value = null;
+  }, 3000);
 };
+
+const onCancel = () => {
+  dialog.value = false;
+  nombre_disp.value = null;
+  type.value = null;
+};
+
+const required = (v) => !!v || 'Field is required';
+
+watchEffect(() => {
+  if (!loader.value) {
+    form.value = null;
+    dialog.value = false;
+  }
+});
 </script>
 
 <style>

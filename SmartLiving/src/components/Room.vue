@@ -3,29 +3,17 @@
         <v-btn color="primary" @click="showForm = true">Mostrar Formulario</v-btn>
     </div>
 </template>
-<script>
+<script setup>
 import { rooms, addRoom } from '@/back/Rooms';
 import RoomCard from "@/components/RoomCard.vue";
-export default {
-    components: {RoomCard},
-    data() {
-        return {
-            newRoomName: '',
-            newRoomType: '',
-            showForm: false
-        };
-    },
-    computed: {
-        rooms() {
-            return rooms;
-        }
-    },
-    methods: {
-        addNewRoom() {
-            addRoom(this.newRoomName, this.newRoomType);
-            this.newRoomName = '';
-            this.newRoomType = '';
-        }
-    }
-}
+const showForm = ref(false);
+const newRoomName = ref('');
+const newRoomType = ref('');
+const addNewRoom = () => {
+  addRoom(newRoomName, newRoomType);
+  newRoomName = '';
+  newRoomType = '';
+};
+
+const computedRooms = () => rooms;
 </script>

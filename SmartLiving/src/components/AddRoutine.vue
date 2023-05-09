@@ -68,33 +68,27 @@
     </v-container>
 </template>
 
-<script>
-export default {
-    data: () => ({
-        rutinaDialog: false,
-        form: false,
-        nombre_habitacion: null,
-        type: null
-    }),
-
-    methods: {
-        onSubmitRutina () {
-            if (!this.form) return
-            this.resetForm();
-        },
-        required (v) {
-            return !!v || 'Field is required'
-        },
-        onCancelRutina () {
-            this.resetForm();
-            this.rutinaDialog = false;
-
-        },
-        resetForm(){
-            this.form = false;
-            this.nombre_habitacion = null;
-            this.type = null;
+<script setup>
+    import { ref } from 'vue'   
+    const rutinaDialog = ref(false)
+    const form = ref(false)
+    const nombre_habitacion = ref(null)
+    const type = ref(null);
+    function onSubmitRutina () {
+            if (!form.value) return
+            resetForm();
         }
-    },
-}
+    function required (v) {
+            return !!v || 'Field is required'
+        }
+    function onCancelRutina () {
+            resetForm();
+            rutinaDialog.value = false;
+
+        }
+    function resetForm(){
+            form.value = false;
+            nombre_habitacion.value = null;
+            type.value = null;
+        }
 </script>

@@ -1,14 +1,10 @@
-<script>
+<script setup>
 import ResidenceCard from "@/components/ResidenceCard.vue";
 import DeviceCard from "@/components/DeviceCard.vue";
 import RoomCard from "@/components/RoomCard.vue";
 import AddRoom from "@/components/AddRoom.vue";
 import AddRoutine from "@/components/AddRoutine.vue";
 import Title from "@/components/Title.vue";
-
-export default {
-    components: {Title, AddRoom, AddRoutine, RoomCard, DeviceCard, ResidenceCard}
-}
 </script>
 
 <template>

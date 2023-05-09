@@ -72,8 +72,9 @@
 
 import {Room, RoomApi, RoomMeta} from "@/api/room";
 import {useRoomStore} from "@/stores/roomStore";
-const roomStore = useRoomStore();
 import {ref} from 'vue'
+
+const roomStore = useRoomStore();
 function onSubmit(){
     if (!form.value) return
     resetForm();

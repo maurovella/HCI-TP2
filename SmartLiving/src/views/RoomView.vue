@@ -125,19 +125,14 @@ header {
 }
 </style>
 
-<script>
+<script setup>
 import ResidenceCard from "@/components/ResidenceCard.vue";
 import DeviceCard from "@/components/DeviceCard.vue";
 import RoomCard from "@/components/RoomCard.vue";
 import AddRoom from "@/components/AddRoom.vue";
 import RoutineDialogue from "@/components/AddRoutine.vue";
 
-export default {
-    components: {RoutineDialogue, AddRoom, RoomCard, DeviceCard, ResidenceCard},
-    data: () => ({
-        dialog: false,
-    }),
+import { ref } from "vue";
 
-}
-
+const dialog = ref(false);
 </script>

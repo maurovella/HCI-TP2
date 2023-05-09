@@ -85,15 +85,11 @@
 
 </template>
 
-<script>
-export default {
-    data: () => ({
-        toggle: null,
-        dialog:false,
-        isSelected: false
-    }),
-}
-
+<script setup>
+    import { ref } from 'vue'
+    const dialog = ref(false)
+    const isSelected = ref(false)
+    const toggle = ref(0)
 </script>
 
 <style>
