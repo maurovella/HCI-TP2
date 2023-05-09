@@ -68,38 +68,37 @@
     </v-container>
 </template>
 
-<script>
+<script setup>
 
 import {Room, RoomApi, RoomMeta} from "@/api/room";
 import {useRoomStore} from "@/stores/roomStore";
-//const roomStore = useRoomStore();
-export default {
-    data: () => ({
-        dialog: false,
-        form: false,
-        nombre_habitacion: null,
-        type: null
-    }),
-
-    methods: {
-        onSubmit () {
-            if (!this.form) return
-            this.resetForm();
-        },
-        required (v) {
-            return !!v || 'Field is required'
-        },
-        onCancel () {
-            this.dialog = !this.dialog;
-            this.resetForm();
-        },
-        resetForm(){
-            this.form = false;
-            this.nombre_habitacion = null;
-            this.type = null;
-        }
-    },
+const roomStore = useRoomStore();
+import {ref} from 'vue'
+function onSubmit(){
+    if (!form.value) return
+    resetForm();
 }
+
+function required (v) {
+    return !!v || 'Field is required'
+}
+
+const form = ref(false)
+const dialog= ref(false)
+const nombre_habitacion= ref('')
+const type=ref('')
+
+function onCancel () {
+    dialog.value = !dialog.value;
+    resetForm();
+}
+
+function resetForm(){
+    form.value=false
+    nombre_habitacion.value = ''
+    type.value=''
+}
+
 </script>
 
 <style>
