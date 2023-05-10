@@ -69,7 +69,7 @@ const roomStore = useRoomStore();
                     
                     >
                     <v-slide-group-item class="ma-5 d-flex">
-                        <RoomCard :name="room.name" :type="room.type"/>
+                        <RoomCard :name="room.name" :type="room.type" :id="room.id"/>
                     </v-slide-group-item>
                 </div>
                 

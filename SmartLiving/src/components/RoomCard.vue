@@ -16,6 +16,9 @@
                 src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
                 cover
             >
+                <div class="delete-overlay">
+                    <v-btn icon="mdi-delete"/>
+                </div>
                 <div class="image-overlay">
                     <v-btn :icon="show ? 'mdi-heart' : 'mdi-heart-outline'" @click.prevent="show=!show"/>
                 </div>
@@ -34,7 +37,8 @@
                         <v-card-title>
                             <span class="text-h5">Editar Habitación</span>
                         </v-card-title>
-                        <v-card-text>
+                        <v-form v-model="form"
+                        @submit.prevent="onSubmit">
                             <v-container>
                                 <v-row>
                                     <v-col
@@ -43,9 +47,12 @@
                                         md="4"
                                     >
                                         <v-text-field
+                                            v-model="new_name"
                                             label="Nuevo nombre de la habitacion"
-                                            required
+                                            :rules="[required]"
                                             clearable
+                                            counter
+                                            maxlength="20"
                                         ></v-text-field>
                                     </v-col>
                                     <v-col
@@ -53,31 +60,45 @@
                                         sm="6"
                                     >
                                         <v-select
+                                            v-model="new_type"
                                             :items="['Cocina', 'Living', 'Dormitorio', 'Baño', 'Jardin', 'Oficina' ,'Otro']"
                                             label="Nuevo tipo de habitacion"
-                                            required
+                                            :rules="[required]"
                                         ></v-select>
                                     </v-col>
                                 </v-row>
                             </v-container>
-                        </v-card-text>
-                        <v-card-actions>
+                            <br>
+                            <v-btn
+                                color="red"
+                                variant="text"
+                                @click="dialog = false"
+                                style="float: left"
+                            >
+                                Eliminar
+                            </v-btn>
                             <v-spacer></v-spacer>
                             <v-btn
                                 color="blue-darken-1"
                                 variant="text"
+                                type="submit"
+                                :disabled="!form"
                                 @click="dialog = false"
+                                style="float: right"
                             >
-                                Cancelar
+                                Confirmar
                             </v-btn>
                             <v-btn
                                 color="blue-darken-1"
                                 variant="text"
+                                type="submit"
                                 @click="dialog = false"
+                                style="float: right"
                             >
-                                Confirmar
+                                Cancelar
                             </v-btn>
-                        </v-card-actions>
+                            
+                        </v-form>
                     </v-card>
                 </v-dialog>
             </v-expand-transition>
@@ -102,15 +123,38 @@
     top: 8px;
     right: 8px;
 }
+.delete-overlay {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+}
 </style>
 
 <script setup>
 import { ref } from "vue";
+import {Room, RoomApi, RoomMeta} from "@/api/room";
+import {useRoomStore} from "@/stores/roomStore";
+const roomStore = useRoomStore();
+const form = ref(false);
 const dialog = ref(false);
 const show = ref(false);
+const new_name = ref("");
+const new_type = ref("");
 const props = defineProps({
   name: String,
-  type: String
+  type: String,
+    id: String,
 });
+function required (v) {
+    return !!v || 'Field is required'
+}
+
+function onSubmit () {
+    form.value = false
+    const room = roomStore.getRoom(props.id);
+    room.value.name = new_name.value;
+    room.value.type = new_type.value;
+    roomStore.modifyRoom(room.value);
+}   
 </script>
 
