@@ -75,7 +75,7 @@
                             <v-btn
                                 color="red"
                                 variant="text"
-                                @click="dialog = false"
+                                @click="onDelete"
                                 style="float: left"
                             >
                                 Eliminar
@@ -177,6 +177,7 @@ async function onSubmit () {
 
 async function onDelete() {
     try {
+        dialog.value = false;
         const room = await roomStore.get(props.id)
         const _result = await roomStore.remove(props.id)
         setResult(_result)

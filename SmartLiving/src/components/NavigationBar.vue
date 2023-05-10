@@ -10,24 +10,6 @@
                 </v-tabs>
             </v-container>
         </v-sheet>
-  <!--
-  <v-sheet class="nav-container py-2" color="primary">
-    <div class="text-left justify-space-around">
-        <v-menu open-on-hover>
-            <template v-slot:activator="{ props }">
-                <v-btn color="primary" v-bind="props">
-                    Activator slot
-                </v-btn>
-            </template>
-            <v-list>
-                <v-list-item v-for="(item, index) in items" :key="index" :value="index">
-                    <v-list-item-title>{{ item.title }}</v-list-item-title>
-                </v-list-item>
-            </v-list>
-        </v-menu>
-    </div>
-  </--v-sheet>
-  -->
 </template>
 
 <style>

@@ -56,7 +56,7 @@ class Device {
             this.id = id;
         }
         this.status = status;
-        this.type=type;
+        this.type = type;
         this.name = name;
         this.meta = meta;
     }
