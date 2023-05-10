@@ -10,7 +10,7 @@
             </v-btn>
         </template>
         <v-card class="mx-auto" style="background-color: #9c9c9c" height="600" width="1200">
-            <img src="myImage" width="300" style="position: absolute; margin-top: -10px;margin-left: 450px">
+            <img :src="imagen" width="300" style="position: absolute; margin-top: -10px;margin-left: 450px">
             <v-dialog>
                 <template v-slot:activator="{ props }">
                     <v-btn
@@ -53,13 +53,12 @@ export default {
         return {
             model: 'Apagado',
             slider1: 0,
-            imagen: '../assets/Apagada.png'
+            imagen: '@/assets/Apagada.png'
         }
     },
     methods: {
         onSwitch() {
             this.imagen = this.model === 'Apagado' ? '../assets/Apagada.png' : '../assets/Prendida.png';
-            this.$refs.myImage.src = this.imagen;
         },
     }
 }
