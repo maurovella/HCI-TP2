@@ -66,7 +66,6 @@ const roomStore = useRoomStore();
                 <div 
                     v-for="room in roomStore.rooms"
                     :key="room.id"
-                    
                     >
                     <v-slide-group-item class="ma-5 d-flex">
                         <RoomCard :name="room.name" :type="room.type" :id="room.id"/>

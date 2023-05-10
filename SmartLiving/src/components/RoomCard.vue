@@ -17,7 +17,7 @@
                 cover
             >
                 <div class="delete-overlay">
-                    <v-btn icon="mdi-delete"/>
+                    <v-btn icon="mdi-delete" @click="onDelete"/>  
                 </div>
                 <div class="image-overlay">
                     <v-btn :icon="show ? 'mdi-heart' : 'mdi-heart-outline'" @click.prevent="show=!show"/>
@@ -40,6 +40,9 @@
                         <v-form v-model="form"
                         @submit.prevent="onSubmit">
                             <v-container>
+                                <pre>
+                                    {{ props  }}
+                                </pre>
                                 <v-row>
                                     <v-col
                                         cols="12"
@@ -134,12 +137,14 @@
 import { ref } from "vue";
 import {Room, RoomApi, RoomMeta} from "@/api/room";
 import {useRoomStore} from "@/stores/roomStore";
+//import { setDefaultResultOrder } from "dns";
 const roomStore = useRoomStore();
 const form = ref(false);
 const dialog = ref(false);
 const show = ref(false);
 const new_name = ref("");
 const new_type = ref("");
+const result = ref(null);
 const props = defineProps({
   name: String,
   type: String,
@@ -149,12 +154,37 @@ function required (v) {
     return !!v || 'Field is required'
 }
 
-function onSubmit () {
-    form.value = false
-    const room = roomStore.getRoom(props.id);
-    room.value.name = new_name.value;
-    room.value.type = new_type.value;
-    roomStore.modifyRoom(room.value);
-}   
+function setResult(r) {
+    result.value = JSON.stringify(r, null, 2)
+}
+
+async function onSubmit () {
+    dialog.value = false;
+    // obtengo la habitacion
+    const modified = await roomStore.get(props.id);
+    // modifico los valores
+    modified.name = new_name.value;
+    modified.meta.type = new_type.value;
+    // guardo la habitacion
+    try {
+        const _result = await roomStore.modify(new Room(props.id, modified.name, modified.meta))
+        setResult(_result)
+    } catch (e) {
+        setResult(e)
+    }
+    
+}
+
+async function onDelete() {
+    try {
+        const room = await roomStore.get(props.id)
+        const _result = await roomStore.remove(props.id)
+        setResult(_result)
+        room.value = null
+    } catch (e) {
+        setResult(e)
+    }
+}
+
 </script>
 
