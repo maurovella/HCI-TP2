@@ -4,6 +4,28 @@ import { Device, DeviceApi } from "@/api/device"
 
 export const useDeviceStore = defineStore('device', () => {
     const devices = ref([])
+    const deviceTypes = ref([])
+
+    async function getTypes() {
+        if(!deviceTypes.values.length) {
+            const fetchTypes = await DeviceTypeApi.getAll();
+            const typesValues = [
+                {name: "Aire Acondicionado", value: "ac", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
+                {name: "Aspiradora", value: "vacuum", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
+                {name: "Lampara", value: "lamp", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
+                {name: "Puerta", value: "door", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
+                {name: "Heladera", value: "refrigerator", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
+            ];
+            const filteredTypes = fetchTypes.filter((fetchType) => typesValues.some((type) => type.value === fetchType.name));
+            const updateTypes = filteredTypes.map((type) => {
+                const typeValue = typesValues.find((typeValue) => typeValue.value === type.name);
+                return Object.assign(type, typeValue);
+            }
+            );
+            deviceTypes.value = updateTypes;
+            return updateTypes;
+        }
+    }
 
     async function add(device) {
         const result = await DeviceApi.add(device)
@@ -73,5 +95,5 @@ export const useDeviceStore = defineStore('device', () => {
     }
 
     
-    return { devices, add, modify, remove, get, getAll, events, state, logs, logsAll, getType, execute}
+    return { devices, deviceTypes, getTypes, add, modify, remove, get, getAll, events, state, logs, logsAll, getType, execute}
 })
