@@ -21,7 +21,7 @@
   
               <v-select
                 v-model="type"
-                :items="deviceTypesArr"
+                :items="typesNames"
                 label="Tipo de dispositivo*"
                 :rules="[required]"
               ></v-select>
@@ -71,22 +71,35 @@
   const result = ref(null);
   const deviceTypesStore = useDeviceTypeStore();
   const deviceTypesArr = ref([]);
+  const typesValues = [
+                {name: "Aire Acondicionado", value: "ac", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
+                {name: "Aspiradora", value: "vacuum", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
+                {name: "Lampara", value: "lamp", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
+                {name: "Puerta", value: "door", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
+                {name: "Heladera", value: "refrigerator", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
+            ];
+  const typesNames = typesValues.map((type) => type.name);
   
   async function fetchData() {
     try {
-      const response = await deviceTypesStore.getAll();
-      if (response && response.result) {
-        deviceTypesArr.value = response.result.map(item => item.name);
-      }
+      const response = await deviceStore.getTypes();
+      //quiero ver que tiene response
+        console.log(response);
+    
     } catch (error) {
       console.error(error);
     }
   }
   
-  onMounted(fetchData);
+  //onMounted(fetchData);
+  
+
   
   async function createDevice() {
-    const _device = new Device(null, deviceTypesArr.value, `${nombre_disp.value}`);
+    const matchingTuple = typesValues.find(function(element) {
+    return element.name === type.value;
+    });
+    const _device = new Device(null, {type:{id:"c89b94e8581855bc"}}, `${nombre_disp.value}`);
     try {
       device.value = await deviceStore.add(_device);
       setResult(device.value);
