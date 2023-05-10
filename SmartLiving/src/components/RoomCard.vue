@@ -40,9 +40,6 @@
                         <v-form v-model="form"
                         @submit.prevent="onSubmit">
                             <v-container>
-                                <pre>
-                                    {{ props  }}
-                                </pre>
                                 <v-row>
                                     <v-col
                                         cols="12"
@@ -135,9 +132,8 @@
 
 <script setup>
 import { ref } from "vue";
-import {Room, RoomApi, RoomMeta} from "@/api/room";
+import {Room} from "@/api/room";
 import {useRoomStore} from "@/stores/roomStore";
-//import { setDefaultResultOrder } from "dns";
 const roomStore = useRoomStore();
 const form = ref(false);
 const dialog = ref(false);
@@ -164,10 +160,10 @@ async function onSubmit () {
     const modified = await roomStore.get(props.id);
     // modifico los valores
     modified.name = new_name.value;
-    modified.meta.type = new_type.value;
+    modified.type = new_type.value;
     // guardo la habitacion
     try {
-        const _result = await roomStore.modify(new Room(props.id, modified.name, modified.meta))
+        const _result = await roomStore.modify(new Room(props.id, modified.name, modified.type))
         setResult(_result)
     } catch (e) {
         setResult(e)
