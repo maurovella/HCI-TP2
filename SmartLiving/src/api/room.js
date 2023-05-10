@@ -51,9 +51,8 @@ class Room {
     }
 }
 class RoomMeta {
-    constructor(size, color) {
-        this.size = size;
-        this.color = color;
+    constructor(type) {
+        this.type = type;
     }
 }
 export { RoomApi, Room, RoomMeta };

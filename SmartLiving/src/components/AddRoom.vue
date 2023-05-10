@@ -75,8 +75,14 @@ import {useRoomStore} from "@/stores/roomStore";
 import {ref} from 'vue'
 
 const roomStore = useRoomStore();
+
+const room = ref(null)
+const result = ref(null)
+
+
 function onSubmit(){
     if (!form.value) return
+    createRoom();
     resetForm();
 }
 
@@ -98,6 +104,23 @@ function resetForm(){
     form.value=false
     nombre_habitacion.value = ''
     type.value=''
+}
+
+async function createRoom() {
+    const index = Math.floor(Math.random() * (999 - 1) + 1)
+    const roomMeta = new RoomMeta(type.value)
+    const _room = new Room(null, `${nombre_habitacion.value} ${index}`, roomMeta)
+
+    try {
+        room.value = await roomStore.add(_room)
+        setResult(room.value)
+    } catch (e) {
+        setResult(e)
+    }
+}
+
+function setResult(r) {
+    result.value = JSON.stringify(r, null, 2)
 }
 
 </script>

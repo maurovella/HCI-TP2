@@ -19,7 +19,7 @@
                 <div class="image-overlay">
                     <v-btn :icon="show ? 'mdi-heart' : 'mdi-heart-outline'" @click.prevent="show=!show"/>
                 </div>
-                <v-card-title>{{ name }}</v-card-title>
+                <v-card-title >{{ name }}</v-card-title>
             </v-img>
             <v-card-text>
                 <div>{{ type }}</div>

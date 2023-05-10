@@ -5,6 +5,8 @@ import RoomCard from "@/components/RoomCard.vue";
 import AddRoom from "@/components/AddRoom.vue";
 import AddRoutine from "@/components/AddRoutine.vue";
 import Title from "@/components/Title.vue";
+import { useRoomStore } from "../stores/roomStore"; 
+const roomStore = useRoomStore();
 </script>
 
 <template>
@@ -61,24 +63,16 @@ import Title from "@/components/Title.vue";
         <h1>Habitaciones</h1>
         <v-sheet class="mx-sm-2 my-sm-5" border rounded color="primary">
             <v-slide-group show-arrows>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
-                </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
-                </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
-                </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
-                </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
-                </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
-                </v-slide-group-item>
+                <div 
+                    v-for="room in roomStore.rooms"
+                    :key="room.id"
+                    
+                    >
+                    <v-slide-group-item class="ma-5 d-flex">
+                        <RoomCard :name="room.name" :type="room.type"/>
+                    </v-slide-group-item>
+                </div>
+                
             </v-slide-group>
         </v-sheet>
         <AddRoom class="add"/>

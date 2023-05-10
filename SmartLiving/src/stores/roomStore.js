@@ -8,8 +8,10 @@ export const useRoomStore = defineStore('room', () => {
     async function add(room) {
         const result = await RoomApi.add(room)
         await getAll()
-        return Object.assign(new Room(), result)
+        return result
     }
+
+
     async function modify(room) {
         const result = await RoomApi.modify(room)
         await getAll()
