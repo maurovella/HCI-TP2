@@ -1,4 +1,3 @@
-@ -0,0 +1,68 @@
 <template>
     <v-dialog>
         <template v-slot:activator="{ props }">
@@ -34,6 +33,7 @@
                     false-value="Apagado"
                     :label="`${model}`"
                     style="position: absolute;margin-top: 245px;margin-left: 150px;color:white"
+                    @click="onSwitch"
             ></v-switch>
             <v-slider style="position: absolute;margin-top: 350px;margin-left: 450px;width: 300px"
                       v-model="slider1"
@@ -41,26 +41,27 @@
                       track-color="black"
                       track-fill-color="yellow"
                       thumb-label
-                      @click="onSwitch"
-            ></v-slider>
+            >></v-slider>
         </v-card>
 
     </v-dialog>
 </template>
-<script>
-export default {
-    data() {
-        return {
-            model: 'Apagado',
-            slider1: 0,
-            imagen: '@/assets/Apagada.png'
-        }
-    },
-    methods: {
-        onSwitch() {
-            this.imagen = this.model === 'Apagado' ? '../assets/Apagada.png' : '../assets/Prendida.png';
-        },
-    }
+
+<script setup>
+import { ref } from 'vue';
+
+const model = ref('Apagado');
+const slider1 = ref(0);
+const imagen = ref('Apagada.png');
+
+function onSwitch() {
+  if (model.value === 'Encendido') {
+    model.value = 'Apagado';
+    imagen.value = 'Apagada.png';
+  } else {
+    model.value = 'Encendido';
+    imagen.value = 'Prendida.png';
+  }
 }
 </script>
 <style>

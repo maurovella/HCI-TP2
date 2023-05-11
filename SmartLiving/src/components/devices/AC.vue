@@ -1,4 +1,3 @@
-@ -0,0 +1,97 @@
 <template>
     <v-container>
         <v-row justify="center">
@@ -34,8 +33,8 @@
                                 <v-btn style="position: absolute;margin-top: 105px;margin-left: 80px;height: 20px;width: 140px;font-size: 10px;font-family: 'Digital Font',emoji">elegir velocidad</v-btn>
                             </v-card>
                         </v-card>
-                        <v-btn style="position: absolute;margin-top: 82px;margin-left: 50px;background-color: #726A5B ;color:white;font-size: 10px">Desplazamiento de Aspas</v-btn>
-                        <v-container style="position: absolute;margin-left: 330px;margin-top: 50px ">
+                        <v-btn style="position: absolute;margin-top: 382px;margin-left: 50px;background-color: #726A5B ;color:white;font-size: 10px">Desplazamiento de Aspas</v-btn>
+                        <v-container style="position: absolute;margin-left: 330px;margin-top: 350px ">
                             <v-btn class="pa-4 rounded-t-xl" style="margin-top: -25px;background-color: #726A5B ;color:white">Subir</v-btn>
                             <p style="margin-left: 17px">TEMP</p>
                             <v-btn class="pa-4 rounded-b-xl" style="margin-top: 5px;background-color: #726A5B ;color:white">Bajar</v-btn>

@@ -10,10 +10,11 @@
             width="300"
             elevation="3"
         >
+            <pre>{{img}}</pre>
             <v-img
                 class="align-end text-white"
                 height="200"
-                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                :src="img"
                 cover
             >
                 <div class="delete-overlay">
@@ -141,11 +142,13 @@ const show = ref(false);
 const new_name = ref("");
 const new_type = ref("");
 const result = ref(null);
+const img = selectImg()
 const props = defineProps({
   name: String,
   type: String,
-    id: String,
+    id: String
 });
+
 
 function onCancel () {
     dialog.value = !dialog.value;
@@ -192,6 +195,25 @@ async function onDelete() {
         room.value = null
     } catch (e) {
         setResult(e)
+    }
+}
+
+function selectImg(){
+    switch(props.type){
+        case 'Cocina':
+            return 'Prendida.png'
+        case 'Living':
+            return 'Living.png'
+        case 'Dormitorio':
+            return 'Dormitorio.png'
+        case 'Jardin':
+            return 'Jardin.png'
+        case 'Baño':
+            return 'Baño.png'
+        case 'Oficina':
+            return 'Oficina.png'
+        default:
+            return 'Otro.png'
     }
 }
 

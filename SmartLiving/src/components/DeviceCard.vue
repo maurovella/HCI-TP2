@@ -30,19 +30,6 @@ const typesValues = [
 const type_name = typesValues.find(function(element) {
     return element.typeId.id === props.type.id;
 }).name;
-console.log(type_name)
-  async function createDevice() {
-    const matchingTuple = typesValues.find(function(element) {
-    return element.value === type.value;
-    });
-    const _device = new Device(null, matchingTuple.typeId, `${nombre_disp.value}`, null);
-    try {
-      device.value = await deviceStore.add(_device);
-      setResult(device.value);
-    } catch (e) {
-      setResult(e);
-    }
-  }
 
 async function onSubmit () {
     dialog.value = false;
