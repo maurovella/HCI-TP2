@@ -11,24 +11,31 @@ const deviceStore = useDeviceStore();
         <Title text="Favoritos"/>
         <v-sheet class="mx-sm-2 my-sm-5" border rounded color="primary">
             <v-slide-group show-arrows>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
-                </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
-                </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
-                </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
-                </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
-                </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
-                </v-slide-group-item>
+                <div class="slide-item">
+                    <v-slide-group-item class="slide-item">
+                        <RoomCard/>
+                    </v-slide-group-item>
+                </div>
+                <div class="slide-item">
+                    <v-slide-group-item class="slide-item">
+                        <RoomCard/>
+                    </v-slide-group-item>
+                </div>
+                <div class="slide-item">
+                    <v-slide-group-item class="slide-item">
+                        <RoomCard/>
+                    </v-slide-group-item>
+                </div>
+                <div class="slide-item">
+                    <v-slide-group-item class="slide-item">
+                        <RoomCard/>
+                    </v-slide-group-item>
+                </div>
+                <div class="slide-item">
+                    <v-slide-group-item class="slide-item">
+                        <RoomCard/>
+                    </v-slide-group-item>
+                </div>
             </v-slide-group>
         </v-sheet>
         <Title text="Dispositivos"/>
@@ -48,3 +55,16 @@ const deviceStore = useDeviceStore();
         <AddDevice/>
     </v-container>
 </template>
+
+<style scoped>
+
+.slide-item {
+    background-blend-mode: lighten;
+    position:relative;
+    color: white;
+    padding:10px;
+    margin-bottom: 25px;
+    box-sizing: border-box;
+}
+
+</style>
