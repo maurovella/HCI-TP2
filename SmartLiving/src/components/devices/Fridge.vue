@@ -2,14 +2,6 @@
 
     <v-container>
         <v-row justify="center">
-            <v-dialog >
-                <template v-slot:activator="{ props }">
-                    <v-btn color="primary" v-bind="props">
-                        Heladera
-                    </v-btn>
-
-                </template>
-
                 <v-card class="mx-auto px-6" height="600" style="background-color: #9c9c9c;overflow: hidden" box-sizing="border-box">
                     <v-card class="fridge mx-auto">
                         <v-card width="310" height="180" class="micropantalla" style="margin-top: 20px; background-color: #9c9c9c; border-radius: 30px;">
@@ -36,7 +28,6 @@
 
                     </v-card>
                 </v-card>
-            </v-dialog>
         </v-row>
 
     </v-container>

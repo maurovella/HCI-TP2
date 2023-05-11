@@ -1,13 +1,4 @@
 <template>
-    <v-dialog>
-        <template v-slot:activator="{ props }">
-            <v-btn
-                    color="primary"
-                    v-bind="props"
-            >
-                Lampara
-            </v-btn>
-        </template>
         <v-card class="mx-auto" style="background-color: #9c9c9c" height="600" width="1200">
             <img :src="imagen" width="300" style="position: absolute; margin-top: -10px;margin-left: 450px">
             <v-dialog>
@@ -43,8 +34,6 @@
                       thumb-label
             >></v-slider>
         </v-card>
-
-    </v-dialog>
 </template>
 
 <script setup>

@@ -7,6 +7,7 @@ import AddRoutine from "@/components/AddRoutine.vue";
 import Title from "@/components/Title.vue";
 import { useRoomStore } from "../stores/roomStore"; 
 const roomStore = useRoomStore();
+roomStore.getAll();
 </script>
 
 <template>

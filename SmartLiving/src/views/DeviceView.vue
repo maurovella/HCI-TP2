@@ -5,6 +5,7 @@ import AddDevice from "@/components/AddDevice.vue";
 import DeviceCard from "@/components/DeviceCard.vue";
 import { useDeviceStore } from "../stores/deviceStore";
 const deviceStore = useDeviceStore();
+deviceStore.getAll();
 </script>
 
 <template>

@@ -1,15 +1,6 @@
 <template>
     <v-container>
         <v-row justify="center">
-            <v-dialog >
-                <template v-slot:activator="{ props }">
-                    <v-btn
-                            color="primary"
-                            v-bind="props"
-                    >
-                        Aire
-                    </v-btn>
-                </template>
                 <v-card class="mx-auto px-6" width="1200" height="600" style="background-color: #9c9c9c;overflow: hidden" >
                     <v-card width="500" height="800" color="white" class="aire">
                         <v-card width="400" height="200px" color="black" class="pantalla">
@@ -45,7 +36,6 @@
                         </v-btn>
                     </v-card>
                 </v-card>
-            </v-dialog>
         </v-row>
 
     </v-container>

@@ -107,8 +107,8 @@ function resetForm(){
 }
 
 async function createRoom() {
-    const roomMeta = new RoomMeta(type.value)
-    const _room = new Room(null, `${nombre_habitacion.value}`, roomMeta.value)
+    const roomMeta = new RoomMeta(`${type.value}`)
+    const _room = new Room(null, `${nombre_habitacion.value}`, roomMeta)
 
     try {
         room.value = await roomStore.add(_room)
