@@ -2,6 +2,7 @@
 import Title from "@/components/Title.vue";
 import RoomCard from "@/components/RoomCard.vue";
 import AddDevice from "@/components/AddDevice.vue";
+import DeviceCard from "@/components/DeviceCard.vue";
 import { useDeviceStore } from "../stores/deviceStore";
 const deviceStore = useDeviceStore();
 </script>
@@ -12,7 +13,7 @@ const deviceStore = useDeviceStore();
         <v-sheet class="mx-sm-2 my-sm-5" border rounded color="primary">
             <v-slide-group show-arrows>
                 <div class="slide-item">
-                    <v-slide-group-item class="slide-item">
+                    <v-slide-group-item>
                         <RoomCard/>
                     </v-slide-group-item>
                 </div>

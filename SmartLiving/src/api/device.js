@@ -51,12 +51,13 @@ class DeviceApi {
 }
 
 class Device {
-    constructor(id, type, name) {
+    constructor(id, type, name, meta) {
         if (id) {
             this.id = id;
         }
         this.type = type;
         this.name = name;
+        this.meta = meta;
     }
     toString() {
         return JSON.stringify(this, null, 2);

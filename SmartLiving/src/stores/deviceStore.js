@@ -10,11 +10,11 @@ export const useDeviceStore = defineStore('device', () => {
         if(!deviceTypes.values.length) {
             const fetchTypes = await DeviceTypeApi.getAll();
             const typesValues = [
-                {name: "Aire Acondicionado", value: "ac", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
-                {name: "Aspiradora", value: "vacuum", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
-                {name: "Lampara", value: "lamp", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
-                {name: "Puerta", value: "door", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
-                {name: "Heladera", value: "refrigerator", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
+                {name: "Aire Acondicionado", typeId: {id: "li6cbv5sdlatti0j"}, value: "ac", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
+                {name: "Aspiradora", typeId: {id: "ofglvd9gqx8yfl3l"}, value: "vacuum", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
+                {name: "Lampara", typeId: {id: "go46xmbqeomjrsjr"}, value: "lamp", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
+                {name: "Puerta", typeId: {id: "lsf78ly0eqrjbz91"}, value: "door", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
+                {name: "Heladera", typeId: {id: "rnizejqr2di0okho"}, value: "refrigerator", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
             ];
             const filteredTypes = fetchTypes.filter((fetchType) => typesValues.some((type) => type.value === fetchType.name));
             const updateTypes = filteredTypes.map((type) => {
