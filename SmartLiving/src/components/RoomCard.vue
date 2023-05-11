@@ -92,7 +92,7 @@
                                 color="blue-darken-1"
                                 variant="text"
                                 type="submit"
-                                @click="dialog = false"
+                                @click="onCancel"
                                 style="float: right"
                             >
                                 Cancelar
@@ -132,7 +132,7 @@
 
 <script setup>
 import { ref } from "vue";
-import {Room} from "@/api/room";
+import {Room, RoomMeta} from "@/api/room";
 import {useRoomStore} from "@/stores/roomStore";
 const roomStore = useRoomStore();
 const form = ref(false);
@@ -146,6 +146,18 @@ const props = defineProps({
   type: String,
     id: String,
 });
+
+function onCancel () {
+    dialog.value = !dialog.value;
+    resetForm();
+}
+
+function resetForm(){
+    form.value=false
+    new_name.value = ''
+    new_type.value=''
+}
+
 function required (v) {
     return !!v || 'Field is required'
 }
@@ -160,10 +172,10 @@ async function onSubmit () {
     const modified = await roomStore.get(props.id);
     // modifico los valores
     modified.name = new_name.value;
-    modified.type = new_type.value;
+    //modified.meta.type = new_type.value;
     // guardo la habitacion
     try {
-        const _result = await roomStore.modify(new Room(props.id, modified.name, modified.type))
+        const _result = await roomStore.modify(new Room(props.id, modified.name, null))
         setResult(_result)
     } catch (e) {
         setResult(e)
