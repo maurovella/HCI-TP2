@@ -72,34 +72,19 @@
   const deviceTypesStore = useDeviceTypeStore();
   const deviceTypesArr = ref([]);
   const typesValues = [
-                {name: "Aire Acondicionado", value: "ac", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
-                {name: "Aspiradora", value: "vacuum", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
-                {name: "Lampara", value: "lamp", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
-                {name: "Puerta", value: "door", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
-                {name: "Heladera", value: "refrigerator", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
+                {name: "Aire Acondicionado", typeId: {id: "li6cbv5sdlatti0j"}, value: "ac", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
+                {name: "Aspiradora", typeId: {id: "ofglvd9gqx8yfl3l"}, value: "vacuum", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
+                {name: "Lampara", typeId: {id: "go46xmbqeomjrsjr"}, value: "lamp", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
+                {name: "Puerta", typeId: {id: "lsf78ly0eqrjbz91"}, value: "door", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
+                {name: "Heladera", typeId: {id: "rnizejqr2di0okho"}, value: "refrigerator", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
             ];
-  const typesNames = typesValues.map((type) => type.name);
-  
-  async function fetchData() {
-    try {
-      const response = await deviceStore.getTypes();
-      //quiero ver que tiene response
-        console.log(response);
-    
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  
-  //onMounted(fetchData);
-  
-
+  const typesNames = typesValues.map((type) => type.name);  
   
   async function createDevice() {
     const matchingTuple = typesValues.find(function(element) {
     return element.name === type.value;
     });
-    const _device = new Device(null, {type:{id:"c89b94e8581855bc"}}, `${nombre_disp.value}`);
+    const _device = new Device(null, matchingTuple.typeId, `${nombre_disp.value}`, null);
     try {
       device.value = await deviceStore.add(_device);
       setResult(device.value);

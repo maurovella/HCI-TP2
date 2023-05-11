@@ -2,14 +2,12 @@
 import { ref } from "vue";
 import { Device } from "@/api/device";
 import { useDeviceStore } from "@/stores/deviceStore";
-const roomStore = useRoomStore();
+const deviceStore = useDeviceStore();
 const form = ref(false);
 const dialog = ref(false);
 const new_name = ref("");
-const new_type = ref("");
 const result = ref(null);
 const show = ref(false);
-
 const props = defineProps({
         name: String,
         type: String,
@@ -21,16 +19,41 @@ function setResult(r) {
     result.value = JSON.stringify(r, null, 2)
 }
 
+const typesValues = [
+                {name: "Aire Acondicionado", typeId: {id: "li6cbv5sdlatti0j"}, value: "ac", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
+                {name: "Aspiradora", typeId: {id: "ofglvd9gqx8yfl3l"}, value: "vacuum", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
+                {name: "Lampara", typeId: {id: "go46xmbqeomjrsjr"}, value: "lamp", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
+                {name: "Puerta", typeId: {id: "lsf78ly0eqrjbz91"}, value: "door", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
+                {name: "Heladera", typeId: {id: "rnizejqr2di0okho"}, value: "refrigerator", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
+            ]; 
+
+const type_name = typesValues.find(function(element) {
+    return element.typeId.id === props.type.id;
+}).name;
+console.log(type_name)
+  async function createDevice() {
+    const matchingTuple = typesValues.find(function(element) {
+    return element.value === type.value;
+    });
+    const _device = new Device(null, matchingTuple.typeId, `${nombre_disp.value}`, null);
+    try {
+      device.value = await deviceStore.add(_device);
+      setResult(device.value);
+    } catch (e) {
+      setResult(e);
+    }
+  }
+
 async function onSubmit () {
     dialog.value = false;
-    // obtengo la habitacion
     const modified = await deviceStore.get(props.id);
-    // modifico los valores
+    const matchingTuple = typesValues.find(function(element) {
+    return element.typeId.id === props.type.id;
+    });
     modified.name = new_name.value;
-    modified.type = new_type.value;
-    // guardo la habitacion
+    modified.meta = matchingTuple.typeId;
     try {
-        const _result = await deviceStore.modify(new Device(props.id, modified.type, modified.status, modified.name, modified.meta))
+        const _result = await deviceStore.modify(new Device(props.id, modified.meta.type, modified.name, modified.meta))
         setResult(_result)
     } catch (e) {
         setResult(e)
@@ -41,10 +64,10 @@ async function onSubmit () {
 async function onDelete() {
     try {
         dialog.value = false;
-        const room = await roomStore.get(props.id)
-        const _result = await roomStore.remove(props.id)
+        const device = await deviceStore.get(props.id)
+        const _result = await deviceStore.remove(props.id)
         setResult(_result)
-        room.value = null
+        device.value = null
     } catch (e) {
         setResult(e)
     }
@@ -78,7 +101,7 @@ async function onDelete() {
                 <v-card-title >{{ name }}</v-card-title>
             </v-img>
             <v-card-text>
-                <div>{{ type }}</div>
+                <div>{{ type_name }}</div>
             </v-card-text>
             <v-expand-transition>
                 <v-dialog
