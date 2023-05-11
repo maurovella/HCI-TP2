@@ -10,7 +10,6 @@
             width="300"
             elevation="3"
         >
-            <pre>{{img}}</pre>
             <v-img
                 class="align-end text-white"
                 height="200"
@@ -18,7 +17,7 @@
                 cover
             >
                 <div class="delete-overlay">
-                    <v-btn icon="mdi-delete" @click="onDelete"/>  
+                    <v-btn icon="mdi-delete" @click.prevent="onDelete"/>  
                 </div>
                 <div class="image-overlay">
                     <v-btn :icon="show ? 'mdi-heart' : 'mdi-heart-outline'" @click.prevent="show=!show"/>

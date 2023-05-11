@@ -6,7 +6,7 @@
                     <v-tab class="tab px-15" :to="{name: 'Home'}"       value="home">Inicio</v-tab>
                     <v-tab class="tab px-15" :to="{name: 'Residence'}"  value="rooms">Habitaciones</v-tab>
                     <v-tab class="tab px-15" :to="{name: 'Device'}"     value="devices">Dispositivos</v-tab>
-                    <v-tab class="tab px-15" :to="{name: 'Room'}"       value="routines">Rutinas</v-tab>
+                    <v-tab class="tab px-15" :to="{name: 'Device'}"       value="routines">Rutinas</v-tab>
                 </v-tabs>
             </v-container>
         </v-sheet>

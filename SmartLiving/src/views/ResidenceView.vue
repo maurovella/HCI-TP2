@@ -68,7 +68,8 @@ const roomStore = useRoomStore();
                     :key="room.id"
                     >
                     <v-slide-group-item class="ma-5 d-flex">
-                        <RoomCard :name="room.name" :type="room.type" :id="room.id"/>
+                        <RoomCard :name="room.name" :type="room.type" :id="room.id"
+                        :to="{path: '/room/'+room.id}"/> 
                     </v-slide-group-item>
                 </div>
                 

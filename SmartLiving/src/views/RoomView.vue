@@ -1,87 +1,20 @@
 <template>
     <v-container>
-        <v-dialog v-model="dialog">
-            <template v-slot:activator="{ props }">
-                <v-btn style="position: absolute;margin-left: 1200px" :icon="'mdi-cog'" v-bind="props"/>
-            </template>
-            <v-card class="mx-auto" style="background-color: white;height: 228px;width: 900px">
-                <v-form>
-                    <v-card>
-                        <v-card-title>
-                            <span class="text-h5">Editar Habitación</span>
-                        </v-card-title>
-                        <v-card-text>
-                            <v-container>
-                                <v-row>
-                                    <v-col
-                                        cols="12"
-                                        sm="6"
-                                        md="4"
-                                    >
-                                        <v-text-field
-                                            label="Habitacion"
-                                            required
-                                            clearable
-                                        ></v-text-field>
-                                    </v-col>
-                                    <v-col
-                                        cols="12"
-                                        sm="6"
-                                    >
-                                        <v-select
-                                            :items="['Cocina', 'Living', 'Dormitorio', 'Baño', 'Jardin', 'Oficina' ,'Otro']"
-                                            label="Nuevo tipo de habitacion"
-                                            required
-                                        ></v-select>
-                                    </v-col>
-                                </v-row>
-                            </v-container>
-                        </v-card-text>
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn
-                                color="blue-darken-1"
-                                variant="text"
-                                @click="dialog = false"
-                            >
-                                Cancelar
-                            </v-btn>
-                            <v-btn
-                                color="blue-darken-1"
-                                variant="text"
-                                @click="dialog = false"
-                            >
-                                Confirmar
-                            </v-btn>
-                        </v-card-actions>
-                    </v-card>
-                </v-form>
-            </v-card>
-        </v-dialog>
-
-        <h1>Dispositivos</h1>
-        <v-sheet class="mx-sm-2 my-sm-5" border rounded color="primary">
+        <Title text="Dispositivos"/>
+        <v-sheet class="mx-2 my-5" border rounded color="primary">
             <v-slide-group show-arrows>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
-                </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
-                </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
-                </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
-                </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
-                </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
-                </v-slide-group-item>
+                <div 
+                    v-for="device in roomDevices"
+                    :key="device.id"
+                    >
+                    <v-slide-group-item class="ma-5 d-flex">
+                        <DeviceCard :name="device.name" :type="device.type" :id="device.id"/>
+                    </v-slide-group-item>
+                </div>
+                
             </v-slide-group>
         </v-sheet>
+        <AddDevice/>
         <h1>Rutinas</h1>
         <v-sheet class="mx-sm-2 my-sm-5" border rounded color="primary">
             <v-slide-group show-arrows>
@@ -131,8 +64,13 @@ import DeviceCard from "@/components/DeviceCard.vue";
 import RoomCard from "@/components/RoomCard.vue";
 import AddRoom from "@/components/AddRoom.vue";
 import RoutineDialogue from "@/components/AddRoutine.vue";
-
+import Title from "@/components/Title.vue";
+import AddDevice from "@/components/AddDevice.vue";
+import { useRoomStore } from "@/stores/roomStore";
 import { ref } from "vue";
-
-const dialog = ref(false);
+const props = defineProps({
+        id: String
+});
+const roomStore = useRoomStore();
+const roomDevices = roomStore.getDevices(props.id);
 </script>

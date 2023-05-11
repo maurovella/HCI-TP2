@@ -25,16 +25,16 @@ class RoomApi {
         return await Api.get(RoomApi.getUrl(), controller);
     }
 
-    static async roomDevices(room, controller) {
-        return await Api.get(RoomApi.getUrl(`${room.id}/devices`), controller);
+    static async roomDevices(room_id, controller) {
+        return await Api.get(RoomApi.getUrl(`${room_id}/devices`), controller);
     }
 
-    static async addDevice(room, deviceId,controller) {
-        return await Api.post(RoomApi.getUrl(`${room.id}/devices/${deviceId}`), room, controller);
+    static async addDevice(room_id, deviceId, controller) {
+        return await Api.post(RoomApi.getUrl(`${room_id}/devices/${deviceId}`), room_id, controller);
     }
 
-    static async removeDevice(deviceId, controller) {
-        return await Api.delete(RoomApi.getUrl(`devices/${deviceId}`), controller);
+    static async removeDevice(room_id, deviceId, controller) {
+        return await Api.delete(RoomApi.getUrl(`${room_id}/devices/${deviceId}`), controller);
     }
 }
 

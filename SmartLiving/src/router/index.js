@@ -9,9 +9,9 @@ const router = createRouter({
     history: createWebHashHistory(import.meta.env.BASE_URL),
     routes: [
         {path: '/', name: 'Home', component: LandingPage},
-        {path: '/r', name: 'Residence', component: ResidenceView},
-        {path: '/d', name: 'Device', component: DeviceView},
-        {path: '/h', name: 'Room', component: RoomView},
+        {path: '/residence', name: 'Residence', component: ResidenceView},
+        {path: '/devices', name: 'Device', component: DeviceView},
+        {path: '/room/:id', name: 'Room', component: RoomView, props: true},
         {path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundView}
     ]
 });
