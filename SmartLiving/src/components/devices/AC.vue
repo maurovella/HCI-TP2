@@ -52,7 +52,7 @@
     </v-container>
 </template>
 
-<style>
+<style scoped>
 
 .Onof {
     color: white !important;
@@ -94,5 +94,6 @@
 
 </style>
 
-<script>
+<script setup>
+    
 </script>
