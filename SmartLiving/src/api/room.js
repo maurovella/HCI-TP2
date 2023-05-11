@@ -39,15 +39,21 @@ class RoomApi {
 }
 
 class Room {
-    constructor(id, name, type) {
+    constructor(id, name, meta) {
         if (id) {
             this.id = id;
         }
         this.name = name;
-        this.type = type;
+        this.meta = meta;
     }
     toString() {
         return JSON.stringify(this, null, 2);
     }
 }
-export { RoomApi, Room };
+
+class RoomMeta {
+    constructor(type) {
+        this.type = type;
+    }
+}
+export { RoomApi, Room , RoomMeta};

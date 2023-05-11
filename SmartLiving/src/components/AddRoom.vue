@@ -70,7 +70,7 @@
 
 <script setup>
 
-import {Room} from "@/api/room";
+import {Room, RoomMeta} from "@/api/room";
 import {useRoomStore} from "@/stores/roomStore";
 import {ref} from 'vue'
 
@@ -107,7 +107,8 @@ function resetForm(){
 }
 
 async function createRoom() {
-    const _room = new Room(null, `${nombre_habitacion.value}`, `${type.value}`)
+    const roomMeta = new RoomMeta(type.value)
+    const _room = new Room(null, `${nombre_habitacion.value}`, roomMeta.value)
 
     try {
         room.value = await roomStore.add(_room)
