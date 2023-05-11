@@ -1,15 +1,6 @@
 @ -0,0 +1,87 @@
 <template>
     <v-container>
-        <v-dialog width="1000px" height="350px">
-            <template v-slot:activator="{ props }">
-                <v-btn
-                        color="primary"
-                        v-bind="props"
-                >
-                    Puerta
-                </v-btn>
-            </template>
             <v-container class="container">
                 <v-card class="image-container" style="display: flex; flex-direction: row-reverse;">
                     <img class="imagen" alt="Closed Door" src="../../assets/ClosedDoor.png" height="150">
@@ -37,7 +28,6 @@
                     </v-container>
                 </v-card>
             </v-container>
-        </v-dialog>
     </v-container>
 </template>
 

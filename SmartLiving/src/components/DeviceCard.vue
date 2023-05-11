@@ -2,6 +2,11 @@
 import { ref } from "vue";
 import { Device } from "@/api/device";
 import { useDeviceStore } from "@/stores/deviceStore";
+import Vaccum from "@/components/devices/Vaccum.vue";
+import AC from "@/components/devices/AC.vue";
+import Door from "@/components/devices/Door.vue";
+import Fridge from "@/components/devices/Fridge.vue";
+import Light from "@/components/devices/Light.vue";
 const deviceStore = useDeviceStore();
 const form = ref(false);
 const dialog = ref(false);
@@ -9,6 +14,7 @@ const new_name = ref("");
 const result = ref(null);
 const show = ref(false);
 const img = selectImg();
+const display = ref(false);
 const props = defineProps({
         name: String,
         type: String,
@@ -21,11 +27,11 @@ function setResult(r) {
 }
 
 const typesValues = [
-                {name: "Aire Acondicionado", typeId: {id: "li6cbv5sdlatti0j"}, value: "ac", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
-                {name: "Aspiradora", typeId: {id: "ofglvd9gqx8yfl3l"}, value: "vacuum", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
-                {name: "Lampara", typeId: {id: "go46xmbqeomjrsjr"}, value: "lamp", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
-                {name: "Puerta", typeId: {id: "lsf78ly0eqrjbz91"}, value: "door", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
-                {name: "Heladera", typeId: {id: "rnizejqr2di0okho"}, value: "refrigerator", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
+                {name: "Aire Acondicionado", typeId: {id: "li6cbv5sdlatti0j"}, value: "ac"},
+                {name: "Aspiradora", typeId: {id: "ofglvd9gqx8yfl3l"}, value: "vacuum"},
+                {name: "Lampara", typeId: {id: "go46xmbqeomjrsjr"}, value: "lamp"},
+                {name: "Puerta", typeId: {id: "lsf78ly0eqrjbz91"}, value: "door"},
+                {name: "Heladera", typeId: {id: "rnizejqr2di0okho"}, value: "refrigerator"},
             ]; 
 
 const type_name = typesValues.find(function(element) {
@@ -80,9 +86,9 @@ function selectImg(){
 <template>
     <v-btn
         color="black"
-        href=""
         height="280"
         width="300"
+        @click="display=!display"
     >
         <v-card
             class="mx-auto"
@@ -183,6 +189,13 @@ function selectImg(){
             </v-card-actions>
         </v-card>
     </v-btn>
+    <v-dialog v-model="display">
+        <AC v-if="props.type.name === 'ac'"/>
+        <Door v-if="props.type.name === 'door'"/>
+        <Light v-if="props.type.name === 'lamp'"/>
+        <Fridge v-if="props.type.name === 'refrigerator'"/>
+        <Vaccum v-if="props.type.name === 'vacuum'"/>
+    </v-dialog>
 </template>
 
 <style scoped>

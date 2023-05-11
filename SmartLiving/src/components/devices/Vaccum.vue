@@ -1,19 +1,6 @@
 <template>
     <div class="text-center">
-        <v-dialog
-                v-model="dialog"
-                width="auto"
-        >
-            <template v-slot:activator="{ props }">
-                <v-btn
-                        color="primary"
-                        v-bind="props"
-                >
-                    Open Dialog
-                </v-btn>
-            </template>
-
-            <v-card>
+                <v-card>
                 <v-container>
                     <v-row justify="center">
                         <v-col cols="auto" style="position: absolute">
@@ -78,16 +65,12 @@
                     </v-row>
                 </v-container>
             </v-card>
-        </v-dialog>
     </div>
-
-
 
 </template>
 
 <script setup>
     import { ref } from 'vue'
-    const dialog = ref(false)
     const isSelected = ref(false)
     const toggle = ref(0)
 </script>
