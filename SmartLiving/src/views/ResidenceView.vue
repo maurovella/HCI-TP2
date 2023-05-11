@@ -7,6 +7,7 @@ import AddRoutine from "@/components/AddRoutine.vue";
 import Title from "@/components/Title.vue";
 import { useRoomStore } from "../stores/roomStore"; 
 const roomStore = useRoomStore();
+roomStore.getAll();
 </script>
 
 <template>
@@ -68,7 +69,7 @@ const roomStore = useRoomStore();
                     :key="room.id"
                     >
                     <v-slide-group-item class="ma-5 d-flex">
-                        <RoomCard :name="room.name" :type="room.type" :id="room.id"/>
+                        <RoomCard :name="room.name" :type="room.meta.type" :id="room.id"/>
                     </v-slide-group-item>
                 </div>
                 

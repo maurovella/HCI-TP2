@@ -10,7 +10,6 @@
             width="300"
             elevation="3"
         >
-            <pre>{{img}}</pre>
             <v-img
                 class="align-end text-white"
                 height="200"
@@ -201,7 +200,7 @@ async function onDelete() {
 function selectImg(){
     switch(props.type){
         case 'Cocina':
-            return 'Prendida.png'
+            return 'Cocina.png'
         case 'Living':
             return 'Living.png'
         case 'Dormitorio':
