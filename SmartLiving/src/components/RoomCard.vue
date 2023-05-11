@@ -103,13 +103,14 @@
                 </v-dialog>
             </v-expand-transition>
             <v-card-actions>
-                <v-btn color="orange"
+                <v-btn style="position: absolute;margin-top: -45px" color="orange"
                        @click.prevent="dialog = !dialog">
                     Edit
                 </v-btn>
                 <v-spacer></v-spacer>
 
                 <v-btn
+                style="position: absolute;margin-top: -45px;margin-left: 235px"
                     icon='mdi-chevron-up'
                 ></v-btn>
             </v-card-actions>

@@ -8,6 +8,7 @@ const dialog = ref(false);
 const new_name = ref("");
 const result = ref(null);
 const show = ref(false);
+const img = selectImg();
 const props = defineProps({
         name: String,
         type: String,
@@ -59,6 +60,21 @@ async function onDelete() {
         setResult(e)
     }
 }
+
+function selectImg(){
+    switch(props.type.name ){
+        case 'ac':
+            return 'AC.png'
+        case 'vacuum':
+            return 'Aspiradora.png'
+        case 'refrigerator':
+            return 'Heladera.png'
+        case 'lamp':
+            return 'Lampara.png'
+        case 'door':
+            return 'Puerta.png'
+    }
+}
 </script>
 
 <template>
@@ -76,7 +92,7 @@ async function onDelete() {
             <v-img
                 class="align-end text-white"
                 height="200"
-                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                :src="img"
                 cover
             >
                 <div class="delete-overlay">
@@ -155,13 +171,13 @@ async function onDelete() {
                 </v-dialog>
             </v-expand-transition>
             <v-card-actions>
-                <v-btn color="orange"
+                <v-btn style="position: absolute;margin-top: -45px" color="orange"
                        @click.prevent="dialog = !dialog">
                     Edit
                 </v-btn>
                 <v-spacer></v-spacer>
 
-                <v-btn
+                <v-btn style="position: absolute;margin-top: -45px;margin-left: 235px" 
                     icon='mdi-chevron-up'
                 ></v-btn>
             </v-card-actions>
