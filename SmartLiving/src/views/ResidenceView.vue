@@ -69,7 +69,8 @@ roomStore.getAll();
                     :key="room.id"
                     >
                     <v-slide-group-item class="ma-5 d-flex">
-                        <RoomCard :name="room.name" :type="room.type" :id="room.id"
+                        {{ room.type }}
+                        <RoomCard :name="room.name" :type="room.meta.type" :id="room.id"
                         :to="{path: '/room/'+room.id}"/> 
                     </v-slide-group-item>
                 </div>

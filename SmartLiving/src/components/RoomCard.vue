@@ -199,6 +199,7 @@ async function onDelete() {
 }
 
 function selectImg(){
+    console.log(props.type)
     switch(props.type){
         case 'Cocina':
             return 'Cocina.png'
