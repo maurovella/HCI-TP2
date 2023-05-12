@@ -13,8 +13,8 @@ class DeviceApi {
         return await Api.get(DeviceApi.getUrl('events'),controller)
     }
 
-    static async state(device, controller) {
-        return await Api.get(DeviceApi.getUrl(`${device.id}/state`),controller)
+    static async state(deviceId, controller) {
+        return await Api.get(DeviceApi.getUrl(`${deviceId}/state`),controller)
     }
 
     static async logs(device,limit,offset,controller) {
@@ -25,8 +25,8 @@ class DeviceApi {
         return await Api.get(DeviceApi.getUrl(`devicesType/${typeId}`),controller)
     }
 
-    static async execute(device,action ,controller) {
-        return await Api.get(DeviceApi.getUrl(`${device.id}/${action}`),controller)
+    static async execute(deviceId, action, args ,controller) {
+        return await Api.put(DeviceApi.getUrl(`${deviceId}/${action}`),args ,controller)
     }
 
     static async add(device, controller) {
