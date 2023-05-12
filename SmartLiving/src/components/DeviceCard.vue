@@ -195,6 +195,7 @@ function selectImg(){
         <Light v-if="props.type.name === 'lamp'"/>
         <Fridge v-if="props.type.name === 'refrigerator'"/>
         <Vaccum v-if="props.type.name === 'vacuum'"/>
+        <v-btn @click="display=!display" style="position: absolute;margin-top: 0px;margin-left: 1248px;" icon="mdi-close-box"></v-btn>
     </v-dialog>
 </template>
 
