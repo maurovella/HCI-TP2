@@ -31,12 +31,12 @@ class RoutineApi {
 }
 
 class Routine {
-    constructor(id, name, devices, meta) {
+    constructor(id, name, actions, meta) {
         if (id) {
             this.id = id;
         }
-        this.devices = devices;
         this.name = name;
+        this.actions = actions;
         this.meta = meta;
     }
     toString() {

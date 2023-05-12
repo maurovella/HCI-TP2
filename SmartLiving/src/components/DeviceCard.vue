@@ -179,7 +179,7 @@ function selectImg(){
             <v-card-actions>
                 <v-btn style="position: absolute;margin-top: -45px" color="orange"
                        @click.prevent="dialog = !dialog">
-                    Edit
+                    Editar
                 </v-btn>
                 <v-spacer></v-spacer>
 
