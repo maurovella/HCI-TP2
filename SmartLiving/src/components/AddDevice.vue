@@ -39,7 +39,6 @@
               >
                 Conectar
               </v-btn>
-  
               <v-btn
                 color="blue-darken-1"
                 size="large"
@@ -57,11 +56,15 @@
   </template>
   
   <script setup>
-  import { ref, onMounted } from 'vue';
+  import { ref } from 'vue';
   import { useDeviceStore } from '@/stores/deviceStore';
-  import { useDeviceTypeStore } from '@/stores/deviceTypeStore';
   import { Device } from '@/api/device';
+  import { useRoomStore } from "@/stores/roomStore";
   
+  const props = defineProps({
+    roomId: String,
+  });
+  const roomStore = useRoomStore();
   const deviceStore = useDeviceStore();
   const dialog = ref(false);
   const form = ref(null);
@@ -69,8 +72,6 @@
   const type = ref(null);
   const device = ref(null);
   const result = ref(null);
-  const deviceTypesStore = useDeviceTypeStore();
-  const deviceTypesArr = ref([]);
   const typesValues = [
                 {name: "Aire Acondicionado", typeId: {id: "li6cbv5sdlatti0j"}, value: "ac", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
                 {name: "Aspiradora", typeId: {id: "ofglvd9gqx8yfl3l"}, value: "vacuum", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},
@@ -87,7 +88,10 @@
     const _device = new Device(null, matchingTuple.typeId, `${nombre_disp.value}`, null);
     try {
       device.value = await deviceStore.add(_device);
-      setResult(device.value);
+      const result = setResult(device.value);
+      if (props.roomId) {
+        await roomStore.addRoomDevice(props.roomId, device.value.id);
+      }
     } catch (e) {
       setResult(e);
     }

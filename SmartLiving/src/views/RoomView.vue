@@ -14,7 +14,7 @@
                 
             </v-slide-group>
         </v-sheet>
-        <AddDevice/>
+        <AddDevice :roomId="props.id"/>
         <h1>Rutinas</h1>
         <v-sheet class="mx-sm-2 my-sm-5" border rounded color="primary">
             <v-slide-group show-arrows>
@@ -67,10 +67,11 @@ import RoutineDialogue from "@/components/AddRoutine.vue";
 import Title from "@/components/Title.vue";
 import AddDevice from "@/components/AddDevice.vue";
 import { useRoomStore } from "@/stores/roomStore";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
+import { useDeviceStore } from "../stores/deviceStore";
 const props = defineProps({
         id: String
 });
 const roomStore = useRoomStore();
-const roomDevices = roomStore.getDevices(props.id);
+const roomDevices = roomStore.getDevices(props.id)
 </script>
