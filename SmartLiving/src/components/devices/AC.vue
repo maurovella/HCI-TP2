@@ -16,28 +16,70 @@
 
                                 </v-card>
                                 <p style="position: absolute;margin-top: -43px;margin-left: 5px;font-family: 'Digital Font',emoji;font-size: 25px">Modo:</p>
-                                <v-btn style="position: absolute;margin-top: -33px;margin-left: 80px;height: 20px;width: 140px;font-size: 10px;font-family: 'Digital Font',emoji">elegir modo</v-btn>
-                                <p style="position: absolute;margin-left: 11px;font-size: 60px;font-family: 'Digital Font',emoji">Off</p>
-                                <p style="position: absolute;margin-left: 110px;font-size: 20px;font-family: 'Digital Font',emoji">Timer:</p>
-                                <p style="position: absolute;margin-left: 180px;font-size: 60px;font-family: 'Digital Font',emoji">0:00</p>
+                                <v-btn style="position: absolute;margin-top: -33px;margin-left: 80px;height: 20px;width: 140px;font-size: 12px;font-family: 'Digital Font',emoji" @click="selectingMode = !selectingMode">Seleccionar modo</v-btn>
+                                <p style="position: absolute;margin-left: 11px;font-size: 60px;font-family: 'Digital Font',emoji">{{ state }}</p>
+                                <p style="position: absolute;margin-left: 110px;font-size: 20px;font-family: 'Digital Font',emoji">temperatura:</p>
+                                <p style="position: absolute;margin-left: 180px;font-size: 60px;font-family: 'Digital Font',emoji">{{temp}}°C</p>
                                 <p style="position: absolute;margin-top: 105px; margin-left: 10px;font-size: 15px;font-family: 'Digital Font',emoji">Velocidad: </p>
-                                <v-btn style="position: absolute;margin-top: 105px;margin-left: 80px;height: 20px;width: 140px;font-size: 10px;font-family: 'Digital Font',emoji">elegir velocidad</v-btn>
+                                <v-btn style="position: absolute;margin-top: 105px;margin-left: 80px;height: 20px;width: 140px;font-size: 10px;font-family: 'Digital Font',emoji" @click="selectingSpeed = !selectingSpeed">elegir velocidad</v-btn>
                             </v-card>
                         </v-card>
-                        <v-btn style="position: absolute;margin-top: 382px;margin-left: 50px;background-color: #726A5B ;color:white;font-size: 10px">Desplazamiento de Aspas</v-btn>
+                        <v-btn style="position: absolute;margin-top: 382px;margin-left: 50px;background-color: #726A5B ;color:white;font-size: 10px" @click="aspas = !aspas">Desplazamiento de Aspas</v-btn>
                         <v-container style="position: absolute;margin-left: 330px;margin-top: 350px ">
-                            <v-btn class="pa-4 rounded-t-xl" style="margin-top: -25px;background-color: #726A5B ;color:white">Subir</v-btn>
+                            <v-btn class="pa-4 rounded-t-xl" style="margin-top: -25px;background-color: #726A5B ;color:white" @click="subirTemp">Subir</v-btn>
                             <p style="margin-left: 17px">TEMP</p>
-                            <v-btn class="pa-4 rounded-b-xl" style="margin-top: 5px;background-color: #726A5B ;color:white">Bajar</v-btn>
+                            <v-btn class="pa-4 rounded-b-xl" style="margin-top: 5px;background-color: #726A5B ;color:white" @click="bajarTemp">Bajar</v-btn>
                         </v-container>
 
-                        <v-btn class="Onof">
+                        <v-btn class="Onof"
+                        @click="turnOnOff"
+                        >
                             Encender/<br>Apagar
                         </v-btn>
                     </v-card>
                 </v-card>
         </v-row>
-
+        <v-dialog v-model="selectingMode">
+            <v-card  class="mx-auto" style="background-color: black;width: 600px;height: 200px;">
+                <v-btn @click="setMode('cool')" style="position:relative;margin-top:25px;margin-left:150px;width: 300px;">Seleccionar Modo Frio</v-btn>
+                <v-btn @click="setMode('heat')" style="position:relative;margin-top:20px;margin-left:150px;width: 300px;">Seleccionar Modo Calor</v-btn>
+                <v-btn @click="setMode('fan')" style="position:relative;margin-top:20px;margin-left:150px;width: 300px;">Seleccionar Modo Ventilador</v-btn>
+            </v-card>
+        </v-dialog>
+        <v-dialog v-model="selectingSpeed">
+            <v-card  class="mx-auto" style="background-color: black;width: 600px;height: 300px;">
+                <v-btn @click="fanSpeed('auto')" style="position:relative;margin-top:20px;margin-left:150px;width: 300px;">Velocidad Automatica</v-btn>
+                <v-btn @click="fanSpeed('25')" style="position:relative;margin-top:20px;margin-left:150px;width: 300px;">Velocidad Baja</v-btn>
+                <v-btn @click="fanSpeed('50')" style="position:relative;margin-top:20px;margin-left:150px;width: 300px;">Velocidad Media</v-btn>
+                <v-btn @click="fanSpeed('75')" style="position:relative;margin-top:20px;margin-left:150px;width: 300px;">Velocidad Alta</v-btn>
+                <v-btn @click="fanSpeed('100')" style="position:relative;margin-top:20px;margin-left:150px;width: 300px;">Velocidad Maxima</v-btn>
+            </v-card>
+        </v-dialog>
+        <v-dialog v-model="aspas" >
+            <v-card class="mx-auto" style="background-color: black;width: 600px;height: 300px;">
+                <v-btn @click="verticalAspa = !verticalAspa" style="position:relative;margin-top:20px;margin-left:150px;width: 300px;">Aspas Verticales</v-btn>
+                <v-btn @click="horizontalAspa = !horizontalAspa" style="position:relative;margin-top:20px;margin-left:150px;width: 300px;">Aspas Horizontales</v-btn>
+            </v-card>
+        </v-dialog>
+        <v-dialog v-model="verticalAspa">
+            <v-card  class="mx-auto" style="background-color: black;width: 600px;height: 300px;">
+                <v-btn @click="setSwing('setVerticalSwing','auto')" style="position:relative;margin-top:20px;margin-left:150px;width: 300px;">Desplazamiento Automatica</v-btn>
+                <v-btn @click="setSwing('setVerticalSwing','22')" style="position:relative;margin-top:20px;margin-left:150px;width: 300px;">Desplazamiento a 22°</v-btn>
+                <v-btn @click="setSwing('setVerticalSwing','45')" style="position:relative;margin-top:20px;margin-left:150px;width: 300px;">Desplazamiento a 45°</v-btn>
+                <v-btn @click="setSwing('setVerticalSwing','67')" style="position:relative;margin-top:20px;margin-left:150px;width: 300px;">Desplazamiento a 67°</v-btn>
+                <v-btn @click="setSwing('setVerticalSwing','90')" style="position:relative;margin-top:20px;margin-left:150px;width: 300px;">Desplazamiento a 90°</v-btn>
+            </v-card>
+        </v-dialog>
+        <v-dialog v-model="horizontalAspa">
+            <v-card  class="mx-auto" style="background-color: black;width: 600px;height: 300px;">
+                <v-btn @click="setSwing('setHorizontalSwing','auto')" style="position:relative;margin-top:20px;margin-left:150px;width: 300px;">Desplazamiento automatico</v-btn>
+                <v-btn @click="setSwing('setHorizontalSwing','-90')" style="position:relative;margin-top:20px;margin-left:150px;width: 300px;">Desplazamiento a -90°</v-btn>
+                <v-btn @click="setSwing('setHorizontalSwing','-45')" style="position:relative;margin-top:20px;margin-left:150px;width: 300px;">Desplazamiento a -45°</v-btn>
+                <v-btn @click="setSwing('setHorizontalSwing','0')" style="position:relative;margin-top:20px;margin-left:150px;width: 300px;">Desplazamiento a 0°</v-btn>
+                <v-btn @click="setSwing('setHorizontalSwing','45')" style="position:relative;margin-top:20px;margin-left:150px;width: 300px;">Desplazamiento a 45°</v-btn>
+                <v-btn @click="setSwing('setHorizontalSwing','90')" style="position:relative;margin-top:20px;margin-left:150px;width: 300px;">Desplazamiento a 90°</v-btn>
+            </v-card>
+        </v-dialog>
     </v-container>
 </template>
 
@@ -48,7 +90,7 @@
     font-size: 11px !important;
     position: absolute;
     border-radius: 30px !important; ;
-    margin-top: -500px;
+    margin-top: 15px;
     margin-left: 340px;
     width: 85px !important;
     height: 50px !important;
@@ -73,7 +115,6 @@
     position: relative;
     border-radius: 70px !important;
     display: flex;
-    justify: center;
     margin-left: 340px;
     margin-top: 40px;
     margin-bottom: -60px;
@@ -84,5 +125,66 @@
 </style>
 
 <script setup>
-    
+    import { ref } from "vue";
+    import {DeviceApi} from "@/api/Device";
+
+    const status = ref(false);
+    const aspas = ref(false)
+    const verticalAspa = ref(false);
+    const horizontalAspa = ref(false);
+    const state = ref("Off")
+    const modeA = ref("Cool")
+    const temp = ref(24);
+    const selectingMode = ref(false);
+    const selectingSpeed = ref(false)
+    const speedA = ref("Auto")
+    const props = defineProps({
+        id: String,
+    }
+);
+
+    function fanSpeed(speed){
+        DeviceApi.execute(props.id,"setFanSpeed",[speed])
+        selectingSpeed.value = false;
+    }
+
+    function setMode(mode) {
+        modeA.value = mode;
+        DeviceApi.execute(props.id,"setMode",[mode])
+        selectingMode.value = false;
+    }
+
+    function subirTemp(){
+        if(temp.value < 38){
+            temp.value = temp.value + 1;
+            DeviceApi.execute(props.id,"setTemperature", [temp.value])
+        }
+    }
+
+    function bajarTemp() {
+        if(temp.value > 18){
+            temp.value = temp.value - 1;
+            DeviceApi.execute(props.id,"setTemperature",[temp.value])
+        }
+    }
+
+    function setSwing(swing,angle){
+        DeviceApi.execute(props.id,swing,[angle])
+        verticalAspa.value = false;
+        horizontalAspa.value = false;
+        aspas = false;
+    }
+
+    function turnOnOff(){
+        if(status.value == false){
+            status.value = true
+            state.value = "On"
+            DeviceApi.execute(props.id,"turnOn")
+        }
+        else{
+            status.value = false
+            state.value = "Off"
+            DeviceApi.execute(props.id,"turnOff")
+        }
+    }
 </script>
