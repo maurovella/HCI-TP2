@@ -4,12 +4,10 @@
                 <v-container>
                     <v-row justify="center">
                         <v-col cols="auto" style="position: absolute">
-                            Pausar
-                            <label class="switch">
-                                <input type="checkbox">
-                                <span class="slider round"></span>
-                            </label>
-                            Iniciar
+                            <v-switch label="Pausar/Iniciar"
+                            v-model="vacuum"
+                            @click="turnOnOff"></v-switch>
+                            <pre>{{ vacuum }}</pre>
                         </v-col>
                         <v-col cols="auto" sm="9">
                             <v-btn :icon="isSelected ? 'mdi-heart' : 'mdi-heart-outline'" @click="isSelected=!isSelected" style="float: right"/>
@@ -70,9 +68,24 @@
 </template>
 
 <script setup>
-    import { ref } from 'vue'
-    const isSelected = ref(false)
-    const toggle = ref(0)
+    import { ref } from 'vue';
+    import {DeviceApi} from "@/api/Device";
+    const isSelected = ref(false);
+    const toggle = ref(0);
+    const vacuum = ref(false);
+    const props = defineProps({
+        id: String,
+    }
+);
+    function turnOnOff(){
+        if(vacuum.value == true){
+            vacuum.value = false;
+            DeviceApi.execute(props.id,"pause");
+        } else{
+            vacuum.value = true;
+            DeviceApi.execute(props.id,"start");
+        }
+    }
 </script>
 
 <style>

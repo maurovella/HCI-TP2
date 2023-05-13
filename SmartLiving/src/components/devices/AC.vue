@@ -172,7 +172,6 @@
         DeviceApi.execute(props.id,swing,[angle])
         verticalAspa.value = false;
         horizontalAspa.value = false;
-        aspas = false;
     }
 
     function turnOnOff(){

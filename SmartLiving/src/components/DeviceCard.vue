@@ -19,6 +19,7 @@ const props = defineProps({
         name: String,
         type: String,
         id: String,
+        roomId: String,
     }
 );
 
@@ -190,12 +191,12 @@ function selectImg(){
         </v-card>
     </v-btn>
     <v-dialog v-model="display">
-        <AC v-if="props.type.name === 'ac'"/>
-        <Door v-if="props.type.name === 'door'"/>
+        <AC :id="props.id" v-if="props.type.name === 'ac'"/>
+        <Door :id="props.id" v-if="props.type.name === 'door'"/>
         <Light :id="props.id" v-if="props.type.name === 'lamp'"/>
-        <Fridge v-if="props.type.name === 'refrigerator'"/>
-        <Vaccum v-if="props.type.name === 'vacuum'"/>
-        <v-btn @click="display=!display" style="position: absolute;margin-top: 0px;margin-left: 1248px;" icon="mdi-close-box"></v-btn>
+        <Fridge :id="props.id" v-if="props.type.name === 'refrigerator'"/>
+        <Vaccum :id="props.id" v-if="props.type.name === 'vacuum'"/>
+        <v-btn @click="display=!display" style="position: relative;margin-top: 0px;margin-left: 1248px;" icon="mdi-close-box"></v-btn>
     </v-dialog>
 </template>
 

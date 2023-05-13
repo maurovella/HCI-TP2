@@ -34,7 +34,6 @@
                   track-color="black"
                   track-fill-color="yellow"
                   thumb-label
-                  @change="setBrightness"
         ></v-slider>
         <v-btn
         style="position: absolute;margin-top: 350px;margin-left: 900px"
