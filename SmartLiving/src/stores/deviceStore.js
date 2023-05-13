@@ -7,7 +7,7 @@ export const useDeviceStore = defineStore('device', () => {
     const deviceTypes = ref([])
 
     async function getTypes() {
-        if(!deviceTypes.values.length) {
+        if(!deviceTypes.value.length) {
             const fetchTypes = await DeviceTypeApi.getAll();
             const typesValues = [
                 {name: "Aire Acondicionado", typeId: {id: "li6cbv5sdlatti0j"}, value: "ac", img: "https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png"},

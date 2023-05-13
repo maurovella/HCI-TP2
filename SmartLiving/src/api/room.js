@@ -29,8 +29,8 @@ class RoomApi {
         return await Api.get(RoomApi.getUrl(`${room_id}/devices`), controller);
     }
 
-    static async addDevice(room_id, deviceId, controller) {
-        return await Api.post(RoomApi.getUrl(`${room_id}/devices/${deviceId}`), room_id, controller);
+    static async addDevice(room_id, device_id, controller) {
+        return await Api.post(RoomApi.getUrl(`${room_id}/devices/${device_id}`), room_id, controller);
     }
 
     static async removeDevice(room_id, deviceId, controller) {
