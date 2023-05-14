@@ -44,4 +44,15 @@ class Routine {
     }
 }
 
-export { RoutineApi, Routine };
+class Action {
+    constructor(actionName, device, params, meta) {
+        if (params) {   
+            this.params = params;
+        }
+        this.actionName = actionName;
+        this.device = device;
+        this.meta = meta;
+    }
+}
+
+export { RoutineApi, Routine, Action };
