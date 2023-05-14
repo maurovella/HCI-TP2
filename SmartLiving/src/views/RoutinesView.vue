@@ -9,9 +9,14 @@
         <h1>Rutinas</h1>
         <v-sheet class="mx-sm-2 my-sm-5" border rounded color="primary">
             <v-slide-group show-arrows>
+                <div 
+                    v-for="routine in routineStore.routines"
+                    :key="routine.id"
+                    >
                 <v-slide-group-item class="ma-5 d-flex">
-                    <RoutineCard/>
+                    <RoutineCard :name="routine.name"/>
                 </v-slide-group-item>
+                </div>
             </v-slide-group>
         </v-sheet>
         <AddRoutine/>
@@ -39,5 +44,8 @@ header {
 
 import RoutineCard from "@/components/RoutineCard.vue";
 import AddRoutine from "@/components/AddRoutine.vue";
+import { useRoutineStore } from "@/stores/routineStore";
+
+const routineStore = useRoutineStore();
 
 </script>

@@ -22,17 +22,8 @@
                 <div class="image-overlay">
                     <v-btn :icon="show ? 'mdi-heart' : 'mdi-heart-outline'" @click.prevent="show=!show"/>
                 </div>
-                <v-card-title style="color:black">Nombre Rutina</v-card-title>
+                <v-card-title style="color:black">{{ name }}</v-card-title>
             </v-img>
-            <v-card-text>
-                <div>Descripcion</div>
-                <div>Detalles</div>
-            </v-card-text>
-            <v-card-actions>
-                <v-btn style="position: absolute;margin-top: -45px;margin-left: 235px" 
-                    icon='mdi-chevron-up'
-                ></v-btn>
-            </v-card-actions>
         </v-card>
     </v-btn>
 </template>
@@ -41,6 +32,23 @@
 <script setup>
 
 import { ref } from "vue";
+import { useRoutineStore } from "@/stores/routineStore";
 const show = ref(false);
 const display = ref(false);
+const routineStore = useRoutineStore();
+
+const props = defineProps({
+    name: String,
+});
+
+async function onDelete () {
+    try {
+        const routine = await routineStore.get(props.id);
+        const _result = await routineStore.remove(props.id);
+
+    }
+    catch (e) {
+        ;
+    }
+};
 </script>
