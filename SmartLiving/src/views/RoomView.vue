@@ -9,7 +9,7 @@
                     >
                     <v-slide-group-item class="ma-5 d-flex">
                         <div class="slide-item">
-                            <DeviceCard :name="device.name" :type="device.type" :id="device.id" :roomId="device.room.id"/>
+                            <DeviceCard :name="device.name" :type="device.type" :id="device.id" :roomId="device.room.id" :device="device"/>
                         </div>
                     </v-slide-group-item>
                 </div>
@@ -67,19 +67,24 @@ header {
 </style>
 
 <script setup>
-import ResidenceCard from "@/components/ResidenceCard.vue";
 import DeviceCard from "@/components/DeviceCard.vue";
 import RoomCard from "@/components/RoomCard.vue";
-import AddRoom from "@/components/AddRoom.vue";
-import RoutineDialogue from "@/components/AddRoutine.vue";
 import Title from "@/components/Title.vue";
 import AddDevice from "@/components/AddDevice.vue";
 import { useRoomStore } from "@/stores/roomStore";
-import { onMounted, ref } from "vue";
+import { onMounted } from "vue";
 import { useDeviceStore } from "../stores/deviceStore";
+import { computed } from "vue";
 const props = defineProps({
         id: String
 });
+
+const deviceStore = useDeviceStore();
 const roomStore = useRoomStore();
-const roomDevices = roomStore.getDevices(props.id)
+onMounted(() => {
+    deviceStore.getAll();
+    roomStore.getDevices(props.id);
+});
+
+const roomDevices = computed(() => deviceStore.devices.filter(device => device.room != null && device.room.id == props.id));
 </script>

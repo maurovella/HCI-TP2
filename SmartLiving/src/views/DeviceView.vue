@@ -4,8 +4,13 @@ import RoomCard from "@/components/RoomCard.vue";
 import AddDevice from "@/components/AddDevice.vue";
 import DeviceCard from "@/components/DeviceCard.vue";
 import { useDeviceStore } from "../stores/deviceStore";
+import { computed } from "vue";
+import { onMounted } from "vue";
 const deviceStore = useDeviceStore();
-deviceStore.getAll();
+onMounted(() => {
+    deviceStore.getAll();
+});
+const devices = computed(() => deviceStore.devices);
 </script>
 
 <template>
@@ -44,7 +49,7 @@ deviceStore.getAll();
         <v-sheet class="mx-2 my-5" border rounded color="primary">
             <v-slide-group show-arrows>
                 <div 
-                    v-for="device in deviceStore.devices"
+                    v-for="device in devices"
                     :key="device.id"
                     >
                     <v-slide-group-item>

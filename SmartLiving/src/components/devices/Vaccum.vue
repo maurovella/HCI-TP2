@@ -1,10 +1,15 @@
 <template>
     <div class="text-center">
                 <v-card>
+                    <p>Status:{{  props.device.state.status  }}<br>
+                        Mode:{{  props.device.state.mode  }}<br>
+                        Bateria:{{  props.device.state.batteryLevel  }}<br>
+                        Habitacion:{{  roomname  }}<br></p>
                 <v-container>
                     <v-row justify="center">
                         <v-col cols="auto" style="position: absolute">
                             <v-switch label="Pausar/Iniciar"
+                            :disabled="props.device.state.batteryLevel < 5"
                             v-model="vacuum"
                             @click="turnOnOff"></v-switch>
                         </v-col>
@@ -24,6 +29,7 @@
                             <v-btn
                                     height="72"
                                     min-width="164"
+                                    @click="newLocation = !newLocation"
                             >
                                 Cambiar ubicacion base de carga
                             </v-btn>
@@ -33,24 +39,9 @@
                                     height="72"
                                     min-width="164"
                                     @click="cargar"
+                                    :disabled="roomname == 'Sin ubicacion'"
                             >
                                 Regresar a base de carga
-                            </v-btn>
-                        </v-col>
-                        <v-col cols="auto">
-                            <v-btn
-                                    height="72"
-                                    min-width="164"
-                            >
-                                Cambiar ubicacion
-                            </v-btn>
-                        </v-col>
-                        <v-col cols="auto">
-                            <v-btn
-                                    height="72"
-                                    min-width="164"
-                            >
-                                Obtener estado
                             </v-btn>
                         </v-col>
                     </v-row>
@@ -62,7 +53,17 @@
                     <v-btn style="margin-top: 20px;width: 200px;margin-left: 100px;" @click="trapear">Trapear</v-btn>
                 </v-card>
             </v-dialog>
-            
+            <v-dialog v-model="newLocation">
+                <v-card class="mx-auto" style="height:200px;width:400px;background-color: black;">
+                    <!--Mostrar todas las habitaciones disponibles (hacer un for sobre roomStore.rooms) como botones-->
+                    <div 
+                    v-for="room in roomStore.rooms"
+                    :key="room.id"
+                    >
+                        <v-btn style="margin-top: 20px;width: 200px;margin-left: 100px;" @click="roomname = room.name; newLocation = false;setLocation(room.id)">{{room.name}}</v-btn>
+                    </div>
+                </v-card>
+            </v-dialog>
     </div>
 
 </template>
@@ -70,10 +71,18 @@
 <script setup>
     import { ref } from 'vue';
     import {DeviceApi} from "@/api/Device";
+    import { computed } from '@vue/reactivity';
+    import { useDeviceStore } from '@/stores/deviceStore';
+    import { useRoomStore } from '@/stores/roomStore';
+    import {  onMounted } from 'vue';
+    const deviceStore = useDeviceStore();
+    const roomStore = useRoomStore();
+    const newLocation = ref(false);
     const isSelected = ref(false);
-    const toggle = ref(0);
     const mode = ref(false);
-    const vacuum = ref(false);
+    const roomname = ref(props.device.state.location == null ? "Sin ubicacion" : props.device.state.location.name);
+    const vacuum = ref(props.device.state.status == "active" ? true : false);
+    const batteryLevel = ref(props.device.state.batteryLevel);
     const props = defineProps({
         id: String,
         roomId: String,
@@ -81,29 +90,39 @@
     }
 );
     function turnOnOff(){
-        if(vacuum.value == true){
-            vacuum.value = false;
-            DeviceApi.execute(props.id,"pause");
-        } else{
+        if(vacuum.value == false && props.device.state.batteryLevel > 5){
             vacuum.value = true;
+            props.device.state.status = "active";
             DeviceApi.execute(props.id,"start");
+        } else{
+            vacuum.value = false;
+            props.device.state.status = "inactive";
+            DeviceApi.execute(props.id,"pause");
         }
     }
 
     function cargar(){
+        props.device.state.status = "docked";
+        vacuum.value = false;
         DeviceApi.execute(props.id,"dock");
-        device.state.batteryLevel = 100;
     }
 
     function aspirar(){
         mode.value = false;
+        props.device.state.mode = "vacuum";
         DeviceApi.execute(props.id,"setMode",['vacuum']);
     }
 
     function trapear(){
         mode.value = false;
+        props.device.state.mode = "mop";
         DeviceApi.execute(props.id,"setMode",['mop']);
     }
+
+    function setLocation(id){
+        DeviceApi.execute(props.id,"setLocation",[id]);
+    }
+
 </script>
 
 <style>

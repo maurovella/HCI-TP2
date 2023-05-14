@@ -56,16 +56,18 @@
   </template>
   
   <script setup>
-  import { ref } from 'vue';
+  import { onMounted, ref } from 'vue';
   import { useDeviceStore } from '@/stores/deviceStore';
   import { Device } from '@/api/device';
   import { useRoomStore } from "@/stores/roomStore";
+  import { defineProps, computed } from 'vue';
   
   const props = defineProps({
     roomId: String,
   });
   const roomStore = useRoomStore();
   const deviceStore = useDeviceStore();
+
   const dialog = ref(false);
   const form = ref(null);
   const nombre_disp = ref(null);
@@ -95,6 +97,7 @@
     } catch (e) {
       setResult(e);
     }
+    deviceStore.getAll();
   }
   
   const onSubmit = () => {

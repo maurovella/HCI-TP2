@@ -5,7 +5,7 @@
                 <v-card class="mx-auto px-6" width="1200" height="500" style="background-color: #9c9c9c;overflow: hidden" box-sizing="border-box">
                     <v-row justify="center">
                     <v-col cols="2">
-                        <v-card class="mt-5" variant="tonal">Modo: {{device.state.mode}}</v-card>
+                        <v-card class="mt-5" variant="tonal">Modo: {{device.state.mode}} </v-card>
                     </v-col>
                     <v-col cols="10">
                         <v-card class="fridge mx-auto">
@@ -17,8 +17,8 @@
                                 <v-btn style="position: absolute;margin-top: -33px;margin-left: 80px;height: 20px;width: 140px;font-size: 10px;font-family: 'Digital Font',emoji" @click="selectingMode = !selectingMode">Cambiar Modo</v-btn>
                                 <p style="position: absolute;margin-left: 7px;font-size: 23px;font-family: 'Digital Font',emoji">Temp. Freezer</p>
                                 <p style="position: absolute;margin-left: 158px;font-size: 23px;font-family: 'Digital Font',emoji">Temp. Heladera</p>
-                                <p style="position: absolute;margin-top: 15px;margin-left: 190px;font-size: 60px;font-family: 'Digital Font',emoji">{{ props.device.state.temperature }}°C</p>
-                                <p style="position: absolute;margin-top: 15px;margin-left: 3px;font-size: 60px;font-family: 'Digital Font',emoji">{{ props.device.state.freezerTemperature}}°C</p>
+                                <p style="position: absolute;margin-top: 15px;margin-left: 190px;font-size: 60px;font-family: 'Digital Font',emoji">{{ device.state.temperature }}°C</p>
+                                <p style="position: absolute;margin-top: 15px;margin-left: 3px;font-size: 60px;font-family: 'Digital Font',emoji">{{ device.state.freezerTemperature }}°C</p>
 
                             </v-card>
 
@@ -98,16 +98,19 @@
 </style>
 
 <script setup>
-    import { ref } from "vue";
+    import { ref, watch } from "vue";
     import {DeviceApi} from "@/api/Device";
+    import { onMounted } from "vue";
+    import { useDeviceStore } from "@/stores/deviceStore";
+    import { getGlobalThis } from "@vue/shared";
+    import { computed } from "vue";
+    const deviceStore = useDeviceStore()
     const selectingMode = ref(false);
     const props = defineProps({
         id: String,
         device: Object,
     });
 
-    const freezerTemp = ref(-8);
-    const fridgeTemp = ref(2);
 
     function subirFreezer(){
         if(props.device.state.freezerTemperature < -8){
@@ -141,8 +144,10 @@
         DeviceApi.execute(props.id,"setMode",[mode]);
         selectingMode.value = false;
         props.device.state.mode = mode;
+        setTimeout(() => {
+            deviceStore.getAll();
+        }, 1);
     }
-
 
 
 </script>

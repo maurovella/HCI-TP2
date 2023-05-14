@@ -7,6 +7,7 @@ import AC from "@/components/devices/AC.vue";
 import Door from "@/components/devices/Door.vue";
 import Fridge from "@/components/devices/Fridge.vue";
 import Light from "@/components/devices/Light.vue";
+import { onMounted } from "vue";
 const deviceStore = useDeviceStore();
 const form = ref(false);
 const dialog = ref(false);
@@ -22,6 +23,18 @@ const props = defineProps({
     roomId: String,
     device: Object
 });
+
+let value = true;
+
+function accionRepetida() {
+  //deviceStore.getAll();
+  // Verificar si value es false y detener la repetición
+  if (!value) {
+    clearInterval(intervalId);
+  }
+}
+
+const intervalId = setInterval(accionRepetida, 3000);
 
 
 function setResult(r) {
@@ -69,6 +82,11 @@ async function onDelete() {
     }
 }
 
+function abrir() {
+    display.value = true;
+    deviceStore.getAll();
+}
+
 function selectImg(){
     switch(props.type.name ){
         case 'ac':
@@ -90,7 +108,7 @@ function selectImg(){
         color="black"
         height="280"
         width="300"
-        @click="display = !display"
+        @click="abrir"
     >
         <v-card
             class="mx-auto"
@@ -104,7 +122,7 @@ function selectImg(){
                 cover
             >
                 <div class="delete-overlay">
-                    <v-btn icon="mdi-delete" @click="onDelete"/>  
+                    <v-btn icon="mdi-delete" @click.prevent="onDelete"/>  
                 </div>
                 <div class="image-overlay">
                     <v-btn :icon="show ? 'mdi-heart' : 'mdi-heart-outline'" @click.prevent="show=!show"/>
@@ -148,7 +166,7 @@ function selectImg(){
                             <v-btn
                                 color="red"
                                 variant="text"
-                                @click="onDelete"
+                                @click.prevent="onDelete"
                                 style="float: left"
                             >
                                 Eliminar
