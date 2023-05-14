@@ -9,7 +9,7 @@
                     >
                     <v-slide-group-item class="ma-5 d-flex">
                         <div class="slide-item">
-                            <DeviceCard :name="device.name" :type="device.type" :id="device.id"/>
+                            <DeviceCard :name="device.name" :type="device.type" :id="device.id" :roomId="device.room.id"/>
                         </div>
                     </v-slide-group-item>
                 </div>
