@@ -1,29 +1,37 @@
 <template>
     <v-card class="mx-auto" style="background-color: #9c9c9c" height="600" width="1200">
         <img :src="imagen" width="300" style="position: absolute; margin-top: -10px;margin-left: 450px">
-        <v-dialog>
-            <template v-slot:activator="{ props }">
-                <v-btn
+        <v-btn
                         color="white"
                         v-bind="props"
                         width="200px"
                         style="margin-top: 250px;margin-left: 900px"
+                        @click="colorDialog = !colorDialog"
                 >
                     Elegir Color
                 </v-btn>
-            </template>
-            <v-card class="mx-auto" style="background-color: white;height: 329px;width: 300px;justify-self: center">
-                <v-color-picker
-                v-model="color"
-                @change="setColor"></v-color-picker>
+        <v-dialog v-model="colorDialog">
+            <v-card class="mx-auto" style="background-color: white;height: 500px;width: 300px;justify-self: center">
+                <v-btn class="mp-3" style="margin-top: 5px;"
+                  @click="setColor">
+                  Confirmar color
+                </v-btn>
+                <div>
+                    <v-color-picker
+                      class="ma-2"
+                      show-swatches
+                      swatches-max-height="300px"
+                      v-model="color">
+                    </v-color-picker>
+                </div>
             </v-card>
         </v-dialog>
         <v-switch
                 color="green"
                 v-model="model"
                 hide-details
-                true-value="Encendido"
-                false-value="Apagado"
+                true-value="on"
+                false-value="off"
                 :label="`${model}`"
                 style="position: absolute;margin-top: 245px;margin-left: 150px;color:white"
                 @click="onSwitch"
@@ -41,11 +49,11 @@
         >
           Confirmar brillo
         </v-btn>
-        <v-btn
-        style="position: absolute;margin-top: 450px;margin-left: 900px"
-        @click="setColor">
-          Confirmar color
-        </v-btn>
+        <v-card height=60px width=195px class="pr-30" variant="tonal" style="font-size: 20px; margin-top: -150px; margin-left: 135px;">
+
+          <p>Brillo: {{ props.device.state.brightness }}</p>
+          <p>Color (RGB): {{ props.device.state.color }}</p>
+        </v-card>
     </v-card>
 </template>
 
@@ -53,35 +61,42 @@
 import { ref } from 'vue';
 import {DeviceApi} from "@/api/Device";
 
-const model = ref('Apagado');
-const slider1 = ref(0);
-const imagen = ref('Apagada.png');
-const color = ref('#FFFFFF');
+const model = ref(props.device.state.status? props.device.state.status: 'off');
+const colorDialog = ref(false);
+const slider1 = ref(props.device.state.brightness? props.device.state.brightness: 0);
+const imagen = ref(model.value == 'on' ? 'Prendida.png':'Apagada.png');
+const color = ref(props.device.state.color? props.device.state.color: 'FFFFFF');
 const props = defineProps({
         id: String,
+        device: Object,
     });
-setColor();
 
 function onSwitch() {
-  if (model.value === 'Encendido') {
-    model.value = 'Apagado';
+  if (model.value === 'on') {
+    model.value = 'off';
     imagen.value = 'Apagada.png';
+    props.device.state.status = 'off'; 
     DeviceApi.execute(props.id,"turnOff");
   } else {
-    model.value = 'Encendido';
+    model.value = 'on';
     imagen.value = 'Prendida.png';
+    props.device.state.status = 'on';
     DeviceApi.execute(props.id,"turnOn");
   }
 }
 
 function setColor(){
+  colorDialog.value = !colorDialog.value;
+  const cutColor = color.value.slice(1);
+  props.device.state.color = cutColor;
   DeviceApi.execute(props.id,"setColor",[color.value]);
 }
 
 function setBrightness(){
-  DeviceApi.execute(props.id,"setBrightness",[slider1.value]);
+  const roundedBrightness = slider1.value.toFixed(1);
+  props.device.state.brightness = roundedBrightness
+  DeviceApi.execute(props.id,"setBrightness",[roundedBrightness]);
+  
 }
-</script>
-<style>
 
-</style>
+</script>
