@@ -7,7 +7,6 @@
                             <v-switch label="Pausar/Iniciar"
                             v-model="vacuum"
                             @click="turnOnOff"></v-switch>
-                            <pre>{{ vacuum }}</pre>
                         </v-col>
                         <v-col cols="auto" sm="9">
                             <v-btn :icon="isSelected ? 'mdi-heart' : 'mdi-heart-outline'" @click="isSelected=!isSelected" style="float: right"/>
@@ -17,14 +16,7 @@
                         </v-col>
                     </v-row>
                     <div class="d-flex align-center flex-column pa-10">
-                        <v-btn-toggle
-                                v-model="toggle"
-                                divided
-                                variant="outlined"
-                        >
-                            <v-btn>Aspirar</v-btn>
-                            <v-btn>Trapear</v-btn>
-                        </v-btn-toggle>
+                            <v-btn @click="mode= !mode">Seleccionar Modo</v-btn>
                     </div>
                     <img alt="vaccum" class="vaccum" src="https://cdn.discordapp.com/attachments/993202630195163176/1089634068397817986/aspiradora.png" width="125" style="">
                     <v-row justify="center">
@@ -40,6 +32,7 @@
                             <v-btn
                                     height="72"
                                     min-width="164"
+                                    @click="cargar"
                             >
                                 Regresar a base de carga
                             </v-btn>
@@ -63,6 +56,13 @@
                     </v-row>
                 </v-container>
             </v-card>
+            <v-dialog v-model="mode">
+                <v-card class="mx-auto" style="height:140px;width:400px;background-color: black;">
+                    <v-btn style="margin-top: 20px;width: 200px;margin-left: 100px;" @click="aspirar">Aspirar</v-btn>
+                    <v-btn style="margin-top: 20px;width: 200px;margin-left: 100px;" @click="trapear">Trapear</v-btn>
+                </v-card>
+            </v-dialog>
+            
     </div>
 
 </template>
@@ -72,9 +72,12 @@
     import {DeviceApi} from "@/api/Device";
     const isSelected = ref(false);
     const toggle = ref(0);
+    const mode = ref(false);
     const vacuum = ref(false);
     const props = defineProps({
         id: String,
+        roomId: String,
+        device: Object
     }
 );
     function turnOnOff(){
@@ -85,6 +88,21 @@
             vacuum.value = true;
             DeviceApi.execute(props.id,"start");
         }
+    }
+
+    function cargar(){
+        DeviceApi.execute(props.id,"dock");
+        device.state.batteryLevel = 100;
+    }
+
+    function aspirar(){
+        mode.value = false;
+        DeviceApi.execute(props.id,"setMode",['vacuum']);
+    }
+
+    function trapear(){
+        mode.value = false;
+        DeviceApi.execute(props.id,"setMode",['mop']);
     }
 </script>
 

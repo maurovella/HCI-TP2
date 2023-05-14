@@ -2,6 +2,8 @@
     <v-container>
         <v-row justify="center">
                 <v-card class="mx-auto px-6" width="1200" height="600" style="background-color: #9c9c9c;overflow: hidden" >
+                    <p>Velocidad: {{ device.state.fanSpeed }}<br>Desplazamiento de aspas verticales: {{ device.state.verticalSwing }}°<br>Desplazamiento de aspas horizontales: {{   device.state.horizontalSwing }} 
+                    <br>Modo: {{  device.state.mode  }}</p>
                     <v-card width="500" height="800" color="white" class="aire">
                         <v-card width="400" height="200px" color="black" class="pantalla">
                             <v-card width="350" height="180" class="micropantalla" style="background-color: #9c9c9c">
@@ -17,9 +19,9 @@
                                 </v-card>
                                 <p style="position: absolute;margin-top: -43px;margin-left: 5px;font-family: 'Digital Font',emoji;font-size: 25px">Modo:</p>
                                 <v-btn style="position: absolute;margin-top: -33px;margin-left: 80px;height: 20px;width: 140px;font-size: 12px;font-family: 'Digital Font',emoji" @click="selectingMode = !selectingMode">Seleccionar modo</v-btn>
-                                <p style="position: absolute;margin-left: 11px;font-size: 60px;font-family: 'Digital Font',emoji">{{ state }}</p>
+                                <p style="position: absolute;margin-left: 11px;font-size: 60px;font-family: 'Digital Font',emoji">{{ props.device.state.status }}</p>
                                 <p style="position: absolute;margin-left: 110px;font-size: 20px;font-family: 'Digital Font',emoji">temperatura:</p>
-                                <p style="position: absolute;margin-left: 180px;font-size: 60px;font-family: 'Digital Font',emoji">{{temp}}°C</p>
+                                <p style="position: absolute;margin-left: 180px;font-size: 60px;font-family: 'Digital Font',emoji">{{props.device.state.temperature}}°C</p>
                                 <p style="position: absolute;margin-top: 105px; margin-left: 10px;font-size: 15px;font-family: 'Digital Font',emoji">Velocidad: </p>
                                 <v-btn style="position: absolute;margin-top: 105px;margin-left: 80px;height: 20px;width: 140px;font-size: 10px;font-family: 'Digital Font',emoji" @click="selectingSpeed = !selectingSpeed">elegir velocidad</v-btn>
                             </v-card>
@@ -127,48 +129,53 @@
 <script setup>
     import { ref } from "vue";
     import {DeviceApi} from "@/api/Device";
-
+    
     const status = ref(false);
     const aspas = ref(false)
     const verticalAspa = ref(false);
     const horizontalAspa = ref(false);
-    const state = ref("Off")
-    const modeA = ref("Cool")
-    const temp = ref(24);
     const selectingMode = ref(false);
     const selectingSpeed = ref(false)
-    const speedA = ref("Auto")
+    
     const props = defineProps({
         id: String,
-    }
-);
+        device: Object,
+    });
 
+    // Actions
     function fanSpeed(speed){
+        props.device.state.fanSpeed = speed;
         DeviceApi.execute(props.id,"setFanSpeed",[speed])
         selectingSpeed.value = false;
     }
 
     function setMode(mode) {
-        modeA.value = mode;
+        props.device.state.mode = mode;
         DeviceApi.execute(props.id,"setMode",[mode])
         selectingMode.value = false;
     }
 
     function subirTemp(){
-        if(temp.value < 38){
-            temp.value = temp.value + 1;
-            DeviceApi.execute(props.id,"setTemperature", [temp.value])
+        if(props.device.state.temperature < 38){
+            props.device.state.temperature = props.device.state.temperature + 1;
+            DeviceApi.execute(props.id,"setTemperature", [props.device.state.temperature])
         }
     }
 
     function bajarTemp() {
-        if(temp.value > 18){
-            temp.value = temp.value - 1;
-            DeviceApi.execute(props.id,"setTemperature",[temp.value])
+        if(props.device.state.temperature > 18){
+            props.device.state.temperature = props.device.state.temperature - 1;
+            DeviceApi.execute(props.id,"setTemperature",[props.device.state.temperature])
         }
     }
 
     function setSwing(swing,angle){
+        if(swing == 'setVerticalSwing'){
+            props.device.state.verticalSwing = angle;
+        }
+        else{
+            props.device.state.horizontalSwing = angle;
+        }
         DeviceApi.execute(props.id,swing,[angle])
         verticalAspa.value = false;
         horizontalAspa.value = false;
@@ -177,13 +184,15 @@
     function turnOnOff(){
         if(status.value == false){
             status.value = true
-            state.value = "On"
+            props.device.state.status = 'on'
             DeviceApi.execute(props.id,"turnOn")
+            
         }
         else{
             status.value = false
-            state.value = "Off"
+            props.device.state.status = 'off'
             DeviceApi.execute(props.id,"turnOff")
-        }
+        }        
     }
+
 </script>

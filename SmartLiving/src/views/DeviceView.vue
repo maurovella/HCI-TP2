@@ -48,7 +48,7 @@ deviceStore.getAll();
                     :key="device.id"
                     >
                     <v-slide-group-item class="ma-5 d-flex">
-                        <DeviceCard :name="device.name" :type="device.type" :id="device.id"/>
+                        <DeviceCard :name="device.name" :type="device.type" :id="device.id" :roomId="device.room != null ? device.room.id : 'noRoom'" :device="device"/>
                     </v-slide-group-item>
                 </div>
                 

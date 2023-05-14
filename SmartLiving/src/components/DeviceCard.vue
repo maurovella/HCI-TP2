@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import { Device } from "@/api/device";
+import { Device , DeviceApi} from "@/api/device";
 import { useDeviceStore } from "@/stores/deviceStore";
 import Vaccum from "@/components/devices/Vaccum.vue";
 import AC from "@/components/devices/AC.vue";
@@ -16,24 +16,25 @@ const show = ref(false);
 const img = selectImg();
 const display = ref(false);
 const props = defineProps({
-        name: String,
-        type: String,
-        id: String,
-        roomId: String,
-    }
-);
+    name: String,
+    type: String,
+    id: String,
+    roomId: String,
+    device: Object
+});
+
 
 function setResult(r) {
     result.value = JSON.stringify(r, null, 2)
 }
 
 const typesValues = [
-                {name: "Aire Acondicionado", typeId: {id: "li6cbv5sdlatti0j"}, value: "ac"},
-                {name: "Aspiradora", typeId: {id: "ofglvd9gqx8yfl3l"}, value: "vacuum"},
-                {name: "Lampara", typeId: {id: "go46xmbqeomjrsjr"}, value: "lamp"},
-                {name: "Puerta", typeId: {id: "lsf78ly0eqrjbz91"}, value: "door"},
-                {name: "Heladera", typeId: {id: "rnizejqr2di0okho"}, value: "refrigerator"},
-            ]; 
+    {name: "Aire Acondicionado", typeId: {id: "li6cbv5sdlatti0j"}, value: "ac"},
+    {name: "Aspiradora", typeId: {id: "ofglvd9gqx8yfl3l"}, value: "vacuum"},
+    {name: "Lampara", typeId: {id: "go46xmbqeomjrsjr"}, value: "lamp"},
+    {name: "Puerta", typeId: {id: "lsf78ly0eqrjbz91"}, value: "door"},
+    {name: "Heladera", typeId: {id: "rnizejqr2di0okho"}, value: "refrigerator"},
+]; 
 
 const type_name = typesValues.find(function(element) {
     return element.typeId.id === props.type.id;
@@ -43,7 +44,7 @@ async function onSubmit () {
     dialog.value = false;
     const modified = await deviceStore.get(props.id);
     const matchingTuple = typesValues.find(function(element) {
-    return element.typeId.id === props.type.id;
+        return element.typeId.id === props.type.id;
     });
     modified.name = new_name.value;
     modified.meta = matchingTuple.typeId;
@@ -89,7 +90,7 @@ function selectImg(){
         color="black"
         height="280"
         width="300"
-        @click="display=!display"
+        @click="display = !display"
     >
         <v-card
             class="mx-auto"
@@ -191,11 +192,11 @@ function selectImg(){
         </v-card>
     </v-btn>
     <v-dialog v-model="display">
-        <AC :id="props.id" v-if="props.type.name === 'ac'"/>
-        <Door :id="props.id" v-if="props.type.name === 'door'"/>
-        <Light :id="props.id" v-if="props.type.name === 'lamp'"/>
-        <Fridge :id="props.id" v-if="props.type.name === 'refrigerator'"/>
-        <Vaccum :id="props.id" v-if="props.type.name === 'vacuum'"/>
+        <AC :device="props.device" :id="props.id"  v-if="props.type.name === 'ac'"/>
+        <Door :device="props.device" :id="props.id" v-if="props.type.name === 'door'"/>
+        <Light :device="props.device" :id="props.id" v-if="props.type.name === 'lamp'"/>
+        <Fridge :device="props.device" :id="props.id" v-if="props.type.name === 'refrigerator'"/>
+        <Vaccum :device="props.device" :id="props.id" :roomId="props.roomId" v-if="props.type.name === 'vacuum'"/>
         <v-btn @click="display=!display" style="position: relative;margin-top: 0px;margin-left: 1248px;" icon="mdi-close-box"></v-btn>
     </v-dialog>
 </template>
