@@ -2,7 +2,7 @@
     <v-container>
         <v-row justify="center">
             <v-dialog
-                    v-model="rutinaDialog"
+                    v-model="dialog"
                     persistent
                     max-width="1024"
             >
@@ -18,10 +18,10 @@
 
                     <v-form
                             v-model="form"
-                            @submit.prevent="onSubmitRutina"
+                            @submit.prevent="onSubmit"
                     >
                         <v-text-field
-                                v-model="nombre_habitacion"
+                                v-model="nombre_rutina"
                                 :rules="[required]"
                                 class="messi"
                                 clearable
@@ -29,13 +29,8 @@
                                 counter
                                 maxlength="20"
                         ></v-text-field>
-
-                        <v-select
-                                v-model="type"
-                                :items="['Cocina', 'Living', 'Dormitorio', 'Baño', 'Jardin', 'Oficina' ,'Otro']"
-                                label="Tipo de habitacion*"
-                                :rules="[required]"
-                        ></v-select>
+                        
+                        <AddAction/>
 
                         <br>
 
@@ -45,7 +40,7 @@
                             size="large"
                             type="submit"
                             variant="text"
-                            @click="rutinaDialog = !rutinaDialog"
+                            @click="dialog = !dialog"
                             style="float: right"
                         >
                             Confirmar
@@ -55,7 +50,7 @@
                                 size="large"
                                 type="submit"
                                 variant="text"
-                                @click="onCancelRutina"
+                                @click="onCancel"
                                 style="float: right"
                         >
                             Cancelar
@@ -69,26 +64,29 @@
 </template>
 
 <script setup>
-    import { ref } from 'vue'   
-    const rutinaDialog = ref(false)
-    const form = ref(false)
-    const nombre_habitacion = ref(null)
-    const type = ref(null);
-    function onSubmitRutina () {
-            if (!form.value) return
-            resetForm();
-        }
-    function required (v) {
-            return !!v || 'Field is required'
-        }
-    function onCancelRutina () {
-            resetForm();
-            rutinaDialog.value = false;
+    import { ref } from 'vue'
+    import AddAction from "@/components/AddAction.vue";    
+    const dialog = ref(false);
+    const form = ref(false);
+    const nombre_rutina = ref(null);
 
-        }
+    function onSubmit () {
+        if (!form.value) return;
+        resetForm();
+    }
+
+    function required (v) {
+        return !!v || 'Field is required';
+    }
+
+    function onCancel () {
+        resetForm();
+        dialog.value = false;
+    }
+
     function resetForm(){
-            form.value = false;
-            nombre_habitacion.value = null;
-            type.value = null;
-        }
+        form.value = false;
+        nombre_rutina.value = null;
+    }
+
 </script>

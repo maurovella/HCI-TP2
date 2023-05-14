@@ -47,8 +47,10 @@ deviceStore.getAll();
                     v-for="device in deviceStore.devices"
                     :key="device.id"
                     >
-                    <v-slide-group-item class="ma-5 d-flex">
-                        <DeviceCard :name="device.name" :type="device.type" :id="device.id"/>
+                    <v-slide-group-item>
+                        <div class="slide-item">
+                            <DeviceCard :name="device.name" :type="device.type" :id="device.id"/>
+                        </div>
                     </v-slide-group-item>
                 </div>
                 
@@ -65,7 +67,7 @@ deviceStore.getAll();
     position:relative;
     color: white;
     padding:10px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     box-sizing: border-box;
 }
 

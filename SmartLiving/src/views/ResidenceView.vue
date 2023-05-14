@@ -15,23 +15,35 @@ roomStore.getAll();
         <h1>Favoritos</h1>
         <v-sheet class="mx-sm-2 my-sm-5" border rounded color="primary">
             <v-slide-group show-arrows>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
+                <v-slide-group-item>
+                    <div class="slide-item">
+                        <RoomCard/>
+                    </div>
                 </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
+                <v-slide-group-item>
+                    <div class="slide-item">
+                        <RoomCard/>
+                    </div>
                 </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
+                <v-slide-group-item>
+                    <div class="slide-item">
+                        <RoomCard/>
+                    </div>
                 </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
+                <v-slide-group-item>
+                    <div class="slide-item">
+                        <RoomCard/>
+                    </div>
                 </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
+                <v-slide-group-item>
+                    <div class="slide-item">
+                        <RoomCard/>
+                    </div>
                 </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
+                <v-slide-group-item>
+                    <div class="slide-item">
+                        <RoomCard/>
+                    </div>
                 </v-slide-group-item>
             </v-slide-group>
         </v-sheet>
@@ -40,23 +52,40 @@ roomStore.getAll();
         <h1>Recientes</h1>
         <v-sheet class="mx-sm-2 my-sm-5" border rounded color="primary">
             <v-slide-group show-arrows>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
+                <v-slide-group-item>
+                    <div class="slide-item">
+                        <RoomCard/>
+                    </div>
                 </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
+                <v-slide-group-item>
+                    <div class="slide-item">
+                        <RoomCard/>
+                    </div>
                 </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
+                <v-slide-group-item>
+                    <div class="slide-item">
+                        <RoomCard/>
+                    </div>
                 </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
+                <v-slide-group-item>
+                    <div class="slide-item">
+                        <RoomCard/>
+                    </div>
                 </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
+                <v-slide-group-item>
+                    <div class="slide-item">
+                        <RoomCard/>
+                    </div>
                 </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
+                <v-slide-group-item>
+                    <div class="slide-item">
+                        <RoomCard/>
+                    </div>
+                </v-slide-group-item>
+                <v-slide-group-item>
+                    <div class="slide-item">
+                        <RoomCard/>
+                    </div>
                 </v-slide-group-item>
             </v-slide-group>
         </v-sheet>
@@ -68,10 +97,12 @@ roomStore.getAll();
                     v-for="room in roomStore.rooms"
                     :key="room.id"
                     >
-                    <v-slide-group-item class="ma-5 d-flex">
+                    <v-slide-group-item>
                         {{ room.type }}
-                        <RoomCard :name="room.name" :type="room.meta.type" :id="room.id"
-                        :to="{path: '/room/'+room.id}"/> 
+                        <div class="slide-item">
+                            <RoomCard :name="room.name" :type="room.meta.type" :id="room.id"
+                            :to="{path: '/room/'+room.id}"/>
+                        </div>
                     </v-slide-group-item>
                 </div>
                 
@@ -81,23 +112,30 @@ roomStore.getAll();
         <h1>Rutinas</h1>
         <v-sheet class="mx-sm-2 my-sm-5" border rounded color="primary">
             <v-slide-group show-arrows>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
+                <v-slide-group-item>
+                    <div class="slide-item">
+                        <RoomCard/>
+                    </div>
                 </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
+                <v-slide-group-item>
+                    <div class="slide-item">
+                        <RoomCard/>
+                    </div>
                 </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
+                <v-slide-group-item>
+                    <div class="slide-item">
+                        <RoomCard/>
+                    </div>
                 </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
+                <v-slide-group-item>
+                    <div class="slide-item">
+                        <RoomCard/>
+                    </div>
                 </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
-                </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
+                <v-slide-group-item>
+                    <div class="slide-item">
+                        <RoomCard/>
+                    </div>
                 </v-slide-group-item>
             </v-slide-group>
         </v-sheet>
@@ -105,7 +143,7 @@ roomStore.getAll();
     </v-container>
 </template>
 
-<style >
+<style scoped>
 body{
     background-color: #4c4592;
 }
@@ -125,4 +163,14 @@ header {
     position: relative;
     margin-top: 30px;
 }
+
+.slide-item {
+    background-blend-mode: lighten;
+    position:relative;
+    color: white;
+    padding:10px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
 </style>

@@ -8,7 +8,9 @@
                     :key="device.id"
                     >
                     <v-slide-group-item class="ma-5 d-flex">
-                        <DeviceCard :name="device.name" :type="device.type" :id="device.id"/>
+                        <div class="slide-item">
+                            <DeviceCard :name="device.name" :type="device.type" :id="device.id"/>
+                        </div>
                     </v-slide-group-item>
                 </div>
                 
@@ -18,35 +20,41 @@
         <h1>Rutinas</h1>
         <v-sheet class="mx-sm-2 my-sm-5" border rounded color="primary">
             <v-slide-group show-arrows>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
+                <v-slide-group-item>
+                    <div class="slide-item">
+                        <RoomCard/>
+                    </div>
                 </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
+                <v-slide-group-item>
+                    <div class="slide-item">
+                        <RoomCard/>
+                    </div>
                 </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
-                </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
-                </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
-                </v-slide-group-item>
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoomCard/>
+                <v-slide-group-item>
+                    <div class="slide-item">
+                        <RoomCard/>
+                    </div>
                 </v-slide-group-item>
             </v-slide-group>
         </v-sheet>
     </v-container>
 </template>
 
-<style >
+<style scoped>
 body{
     background-color: #4c4592;
 }
 header {
     line-height: 1.5;
+}
+
+.slide-item {
+    background-blend-mode: lighten;
+    position:relative;
+    color: white;
+    padding:10px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
 }
 
 @media (min-width: 1024px) {
