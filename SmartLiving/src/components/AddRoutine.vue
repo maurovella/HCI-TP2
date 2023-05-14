@@ -29,13 +29,13 @@
                                 counter
                                 maxlength="20"
                         ></v-text-field>
-                        
+
                         <AddAction/>
 
                         <br>
 
                         <v-btn
-                            :disabled="!form"
+                            :disabled="routineStore.actions.length == 0 || !form"
                             color="blue-darken-1"
                             size="large"
                             type="submit"
@@ -66,12 +66,18 @@
 <script setup>
     import { ref } from 'vue'
     import AddAction from "@/components/AddAction.vue";    
+    import { useRoutineStore } from '../stores/routineStore';
+    import { Routine } from "@/api/routine.js";
+    import { useDeviceStore } from "@/stores/deviceStore";
     const dialog = ref(false);
     const form = ref(false);
     const nombre_rutina = ref(null);
-
+    const routineStore = useRoutineStore();
+    
     function onSubmit () {
         if (!form.value) return;
+        const actions = routineStore.actions;
+        routineStore.add(new Routine(null,`${nombre_rutina.value}`, actions, null));
         resetForm();
     }
 
@@ -87,6 +93,7 @@
     function resetForm(){
         form.value = false;
         nombre_rutina.value = null;
+        routineStore.clearActions();
     }
 
 </script>

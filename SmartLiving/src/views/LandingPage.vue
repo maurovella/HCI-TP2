@@ -33,7 +33,10 @@
                     </v-col>
                 </v-row>
             </v-container>
-            <v-btn class ="btn-start">Empezar ya!</v-btn>
+            <v-btn 
+                class ="btn-start"
+                :to="{name: 'Residence'}"
+                >Empezar ya!</v-btn>
         </v-container>
     </v-container>
 </template>

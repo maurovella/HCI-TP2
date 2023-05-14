@@ -142,8 +142,10 @@ function selectImg(){
                         <v-card-title>
                             <span class="text-h5">Editar Dispositivo</span>
                         </v-card-title>
-                        <v-form v-model="form"
-                        @submit.prevent="onSubmit">
+                        <v-form 
+                            v-model="form"
+                            @submit.prevent="onSubmit"
+                        >
                             <v-container>
                                 <v-row>
                                     <v-col

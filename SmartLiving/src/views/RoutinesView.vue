@@ -1,25 +1,30 @@
 <template>
     <v-container>
         <h1>Favoritos</h1>
+        
         <v-sheet class="mx-2 my-5" border rounded color="primary">
             <v-slide-group show-arrows>
                 
             </v-slide-group>
         </v-sheet>
+
         <h1>Rutinas</h1>
+        
         <v-sheet class="mx-sm-2 my-sm-5" border rounded color="primary">
             <v-slide-group show-arrows>
                 <div 
-                    v-for="routine in routineStore.routines"
+                    v-for="routine in routines"
                     :key="routine.id"
                     >
-                <v-slide-group-item class="ma-5 d-flex">
-                    <RoutineCard :name="routine.name"/>
-                </v-slide-group-item>
+                    <v-slide-group-item class="ma-5 d-flex">
+                        <RoutineCard :name="routine.name" :id="routine.id" :actions="routine.actions"/>
+                    </v-slide-group-item>
                 </div>
             </v-slide-group>
         </v-sheet>
+        
         <AddRoutine/>
+    
     </v-container>
 </template>
 
@@ -45,7 +50,11 @@ header {
 import RoutineCard from "@/components/RoutineCard.vue";
 import AddRoutine from "@/components/AddRoutine.vue";
 import { useRoutineStore } from "@/stores/routineStore";
+import { onMounted, computed } from "vue";
 
 const routineStore = useRoutineStore();
-
+onMounted(() => {
+    routineStore.getAll();
+});
+const routines = computed(() => routineStore.routines);
 </script>

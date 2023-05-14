@@ -5,7 +5,6 @@
             <v-slide-group show-arrows>
                 <div 
                     v-for="device in roomDevices"
-                    :key="device.id"
                     >
                     <v-slide-group-item class="ma-5 d-flex">
                         <div class="slide-item">
@@ -44,6 +43,7 @@
 body{
     background-color: #4c4592;
 }
+
 header {
     line-height: 1.5;
 }

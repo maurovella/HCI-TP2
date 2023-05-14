@@ -72,28 +72,28 @@
 
 import {Room, RoomMeta} from "@/api/room";
 import {useRoomStore} from "@/stores/roomStore";
-import {ref} from 'vue'
+import {ref} from 'vue';
 
 const roomStore = useRoomStore();
 
-const room = ref(null)
-const result = ref(null)
+const room = ref(null);
+const result = ref(null);
 
 
 function onSubmit(){
-    if (!form.value) return
+    if (!form.value) return;
     createRoom();
     resetForm();
 }
 
 function required (v) {
-    return !!v || 'Field is required'
+    return !!v || 'Field is required';
 }
 
-const form = ref(false)
-const dialog= ref(false)
-const nombre_habitacion= ref('')
-const type=ref('')
+const form = ref(false);
+const dialog = ref(false);
+const nombre_habitacion = ref('');
+const type = ref('');
 
 function onCancel () {
     dialog.value = !dialog.value;
