@@ -2,20 +2,18 @@
     <v-container>
             <v-container class="container">
                 <v-card class="image-container" style="display: flex; flex-direction: row-reverse;">
-                    <img class="imagen" alt="Closed Door" src="../../assets/ClosedDoor.png" height="150">
+                    <img class="imagen" alt="Door" :src="doorimg" height="250">
+                    <img class="imagen" alt="Candado" :src="candimg" height="100">
                     <v-container class="button-container">
                         <v-switch label="Cerrada/Abierta"
                         :disabled="lock"
                         v-model="tipo"
-                        @click="openclose"></v-switch>
+                        @click="openclose"/>
                         <v-switch label="Desbloqueada/Bloqueada"
                         :disabled="tipo"
                         v-model="lock"
-                        @click="lockunlock"></v-switch>
+                        @click="lockunlock"/>
 
-                    </v-container>
-                    <v-container>
-                        <v-btn dark class="state" color="orange">Obtener Estado</v-btn>
                     </v-container>
                 </v-card>
             </v-container>
@@ -43,11 +41,11 @@
     height: 400px;
 }
 
-
 .image-container img {
     display: block;
     max-width: 100%;
 }
+
 .state{
     position: relative;
     left: 80%;
@@ -59,8 +57,10 @@
     import {DeviceApi} from "@/api/Device";
 
     // States
-    const tipo = ref(false);
-    const lock = ref(false);
+    const tipo = ref(props.device.state.status == "open" ? true : false);
+    const doorimg = ref(props.device.state.status == 'open' ? 'open_door.png' : 'ClosedDoor.png' )
+    const candimg = ref(props.device.state.lock == 'lock' ? 'lock.png' : 'unlock.png' )
+    const lock = ref(props.device.state.lock == "lock" ? true : false);
     const props = defineProps({
         id: String,
         device: Object,
@@ -70,11 +70,14 @@
     function openclose(){
         if(tipo.value == false){
             tipo.value = true;
-            props.device.state.status
+            props.device.state.status = "open";
+            doorimg.value = 'open_door.png'
             DeviceApi.execute(props.id,"open");
 
         }else{
             tipo.value = false;
+            props.device.state.status = "close";
+            doorimg.value = 'ClosedDoor.png'
             DeviceApi.execute(props.id,"close");
 
         }
@@ -83,12 +86,17 @@
     function lockunlock(){
         if(lock.value == false){
             lock.value = true;
+            props.device.state.lock = "lock";
+            candimg.value = 'lock.png'   
             DeviceApi.execute(props.id,"lock");
 
         }else{
             lock.value = false;
+            props.device.state.lock = "unlock";
+            candimg.value = 'unlock.png'
             DeviceApi.execute(props.id,"unlock");
 
         }
     }
+
 </script>
