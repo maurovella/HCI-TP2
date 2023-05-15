@@ -50,6 +50,7 @@ header {
 import RoutineCard from "@/components/RoutineCard.vue";
 import AddRoutine from "@/components/AddRoutine.vue";
 import { useRoutineStore } from "@/stores/routineStore";
+import { useRoomStore } from "@/stores/roomStore";
 import { onMounted, computed } from "vue";
 
 const routineStore = useRoutineStore();
@@ -57,4 +58,5 @@ onMounted(() => {
     routineStore.getAll();
 });
 const routines = computed(() => routineStore.routines);
+const rooms = computed(() => routineStore.rooms);
 </script>

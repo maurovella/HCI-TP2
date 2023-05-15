@@ -47,6 +47,102 @@
                             item-text="name"
                             item-value="id"
                         />
+
+                        <v-form v-if="selectedAction == 'Elegir temperatura'" v-model="form2">
+                            <v-text-field v-model="parama" type="number" min="18" max="38" required></v-text-field>
+                            <v-btn @click="form2=true;hasParam=true;getParam(temp)">Confirmar</v-btn>
+                        </v-form>
+
+
+                        <v-form v-if="selectedAction == 'Elegir desplazamiento de aspas verticales'" v-model="form2">
+                            <v-select
+                                v-model="parama"
+                                :items="['auto', '22','45','67','90']"
+                                label="Desplazamiento de aspas verticales"
+                                item-text="name"
+                                item-value="id"
+                            />
+                            <v-btn @click="form2=true;hasParam=true;getParam(verticalSwing)">Confirmar</v-btn>
+                        </v-form>
+
+                        <v-form v-if="selectedAction == 'Elegir desplazamiento de aspas horizontales'" v-model="form2">
+                            <v-select
+                                v-model="parama"
+                                :items="['auto', '-90','-45','0','45','90']"
+                                label="Desplazamiento de aspas horizontales"
+                                item-text="name"
+                                item-value="id"
+                            />
+                            <v-btn @click="form2=true;hasParam=true;getParam(horizontalSwing)">Confirmar</v-btn>
+                        </v-form>
+
+                        <v-form v-if="selectedAction == 'Elegir modo del aire'" v-model="form2">
+                            <v-select
+                                v-model="parama"
+                                :items="['cool', 'heat', 'fan']"
+                                label="Modo"
+                                item-text="name"
+                                item-value="id"
+                            />
+                            <v-btn @click="form2=true;hasParam=true;getParam(airMode)">Confirmar</v-btn>
+                        </v-form>
+
+                        <v-form v-if="selectedAction == 'Elegir velocidad'" v-model="form2">
+                            <v-select
+                                v-model="parama"
+                                :items="['auto', '25', '50', '75', '100']"
+                                label="Velocidad"
+                                item-text="name"
+                                item-value="id"
+                            />
+                            <v-btn @click="form2=true;hasParam=true;getParam(speed)">Confirmar</v-btn>
+                        </v-form>
+
+                        <v-form v-if="selectedAction == 'Cambiar ubicacion de base de carga'" v-model="form2">
+                            <v-select
+                                v-model="parama"
+                                :items="roomNames"
+                                label="Ubicacion"
+                                item-text="name"
+                                item-value="id"
+                            />
+                            <v-btn @click="form2=true;hasParam=true;getParam(chargeBase)">Confirmar</v-btn>
+                        </v-form>
+
+                        <v-form v-if="selectedAction == 'Cambiar Brillo'" v-model="form2">
+                            <v-text-field v-model="parama" type="number" min="0" max="100" required></v-text-field>
+                            <v-btn @click="form2=true;hasParam=true;getParam(brightness)">Confirmar</v-btn>
+                        </v-form>
+
+                        <v-form v-if="selectedAction == 'Cambiar color'" v-model="form2">
+                            <v-text-field
+                                v-model="parama"
+                                label="RGB Value"
+                                :rules="rgbRules"
+                            ></v-text-field>
+                            <v-btn @click="form2=true;hasParam=true;getParam(color)">Confirmar</v-btn>
+                        </v-form>
+
+                        <v-form v-if="selectedAction == 'Elegir temperatura de la Heladera'" v-model="form2">
+                            <v-text-field v-model="parama" type="number" min="2" max="8" required></v-text-field>
+                            <v-btn @click="form2=true;hasParam=true;getParam(temp)">Confirmar</v-btn>
+                        </v-form>
+                        
+                        <v-form v-if="selectedAction == 'Elegir temperatura del Freezer'" v-model="form2">
+                            <v-text-field v-model="parama" type="number" min="-20" max="-8" required></v-text-field>
+                            <v-btn @click="form2=true;hasParam=true;getParam(temp)">Confirmar</v-btn>
+                        </v-form>
+
+                        <v-form v-if="selectedAction == 'Elegir Modo de la heladera'" v-model="form2">
+                            <v-select
+                                v-model="parama"
+                                :items="['default', 'party', 'vacations']"
+                                label="Modo"
+                                item-text="name"
+                                item-value="id"
+                            />
+                            <v-btn @click="form2=true;hasParam=true;getParam(mode)">Confirmar</v-btn>
+                        </v-form>
                     
                         <v-btn
                             color="blue-darken-1"
@@ -68,6 +164,7 @@
                         >
                             Cancelar
                         </v-btn>
+                        
                     </v-form>
                 </v-card-text>
             </v-card>  
@@ -82,18 +179,34 @@
 import { ref, computed } from 'vue'
 import { useDeviceStore } from "@/stores/deviceStore";
 import { useRoutineStore } from "@/stores/routineStore";
+import { useRoomStore } from "@/stores/roomStore"
 import { Action } from "@/api/routine.js";
 
 const deviceStore = useDeviceStore();
 const routineStore = useRoutineStore();
+const roomStore = useRoomStore();
 const devices = ref([]);
 deviceStore.getAll().then(data => { devices.value = data });
-
+const parama = ref(null);
 const deviceNames = computed(() => devices.value.map(device => device.name));
+const rooms = ref([]);
+roomStore.getAll().then(data => { rooms.value = data });
+const roomNames = computed(() => rooms.value.map(room => room.name));
 const selectedDevice = ref(null);
 const selectedAction = ref(null);
 const dialog = ref(false);
-const form = ref(false);
+let form = ref(false);
+let form2 = ref(false);
+
+const rgbRules = [
+        value => /^#[0-9A-Fa-f]{6}$/.test(value) || 'Invalid RGB value'
+      ]
+
+let action_name = ref('');
+let param = ref([]);
+
+const hasParam = ref(false);
+
 
 const deviceNameMap = new Map();
 
@@ -139,103 +252,120 @@ const deviceActions = computed(() => {return (d) => {
     return _ret;
 }});
 
-function translate() {
-    const _device = devices.value.find(__device => __device.name === selectedDevice.value);
-    let action_name = '';
-    let param = [];
-    let action_device = {
-        id: _device.id
+function getParam(){
+    if(selectedAction.value == 'Cambiar ubicacion de base de carga'){
+        param.value = [rooms.value[roomNames.value.indexOf(parama.value)].id]
+        return;
     }
+    if(hasParam.value){
+        
+        param.value = [parama.value];
+        
+    }
+    else {
+        param.value = [];
+    }
+}
+
+function translate() {
+    let _param = '';
     switch(selectedAction.value) {
         case "Elegir temperatura":
-            action_name = 'setTemperature'
-            param = [28]
+            action_name.value = 'setTemperature'
+            hasParam.value = true
             break;
         case "Elegir modo del aire":
-            action_name = 'setMode'
-            param = ['heat']
+            action_name.value = 'setMode'
+            hasParam.value = true
             break;
         case "Elegir desplazamiento de aspas verticales":
-            action_name = 'setVerticalSwing'
-            param = [22]
+            action_name.value = 'setVerticalSwing'
+            hasParam.value = true
             break;
         case "Encender":
-            action_name = 'turnOn'
+            action_name.value = 'turnOn'
             break;
         case "Apagar": 
-            action_name = 'turnOff'
+            action_name.value = 'turnOff'
             break;  
         case "Elegir desplazamiento de aspas horizontales":
-            action_name = 'setHorizontalSwing'
-            param = [-45]
+            action_name.value = 'setHorizontalSwing'
+            hasParam.value = true
             break;
         case "Elegir velocidad":
-            action_name = 'setFanSpeed'
-            param = [25]
+            action_name.value = 'setFanSpeed'
+            hasParam.value = true
             break;
         case "Modo Aspirar":
-            action_name = 'setMode'
-            param = ['vacuum']
+            action_name.value = 'setMode'
+            _param = 'vacuum'
+            param.value = [_param]
             break;
         case "Modo Trapear":
-            action_name = 'setMode'
-            param = ['mop']
+            action_name.value = 'setMode'
+            _param = 'mop'
+            param.value = [_param]
             break;
         case "Cambiar ubicacion de base de carga":
-            action_name = 'setLocation'
-            param = ['472de1eb64bac961']
+            action_name.value = 'setLocation'
+            hasParam.value = true
             break;
         case "Volver a la base de carga":
-            action_name = 'dock'
+            action_name.value = 'dock'
             break;
         case "Cambiar color":
-            action_name = 'setColor'
-            param = ['#9c9c9c']
+            action_name.value = 'setColor'
+            hasParam.value = true
             break;
         case "Cambiar Brillo":
-            action_name = 'setBrightness'
-            param = [20]
+            action_name.value = 'setBrightness'
+            hasParam.value = true
             break;
         case "Abrir":
-            action_name = 'open'
+            action_name.value = 'open'
             break;
         case "Cerrar":
-            action_name = 'close'
+            action_name.value = 'close'
             break;
         case "Bloquear":
-            action_name = 'lock'
+            action_name.value = 'lock'
             break;
         case "Desbloquear":
-            action_name = 'unlock'
+            action_name.value = 'unlock'
             break;
         case "Elegir temperatura de la Heladera":
-            action_name = 'setTemperature'
-            param = [5]
+            action_name.value = 'setTemperature'
+            hasParam.value = true
             break;
         case "Elegir temperatura del Freezer":
-            action_name = 'setFreezerTemperature'
-            param = [-10]
+            action_name.value = 'setFreezerTemperature'
+            hasParam.value = true
             break;
         case "Elegir Modo de la heladera":
-            action_name = 'setMode'
-            param = ['vacation']
+            action_name.value = 'setMode'
+            hasParam.value = true
             break;
         case "Comenzar":
-            action_name = 'start'
+            action_name.value = 'start'
             break;
         case "Pausar":
-            action_name = 'pause'
+            action_name.value = 'pause'
             break;
         default:
             break;    
     }
-    return new Action(action_name, action_device, param, null);
 }
 
 function onSubmit() {
     if (!form.value) return;
-    const action = translate();
-    routineStore.addAction(action);
+    translate();
+
+    const _device = devices.value.find(__device => __device.name === selectedDevice.value);
+    let action_device = {
+        id: _device.id
+    }
+    routineStore.addAction(new Action(action_name.value, action_device, param.value, null));
+    param.value = [];
     resetForm();
 }
 

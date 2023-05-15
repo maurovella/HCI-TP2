@@ -1,7 +1,10 @@
 <template>
     <v-container>
-        <h1 style="color:white;font-size: 60px;position: relative;margin-left: 420px;margin-bottom: 300px;">SmartLiving</h1>
-        <h1 style="color: white;font-size: 40px;position: relative;margin-left: 350px;margin-top: -300px;">Viví Inteligente, viví mejor</h1>
+        <v-container>
+            <img src="logo.png" class="photo" width="450">
+        </v-container>
+        
+        <h1 style="color: white;font-size: 40px;display:block;margin: 0 auto">Viví Inteligente, viví mejor</h1>
         <v-container >
             <br>
             <br>
@@ -65,7 +68,8 @@ header {
 }
 
 .btn-start {
-  position: absolute;
+  position: relative;
+  margin-top: -700px;
   top: 50%;
   left: 70%;
   transform: translate(-50%, -50%);
@@ -78,6 +82,11 @@ header {
   text-decoration: none;
   transition: background-color 0.3s ease-in-out;
   text-align: center;
+}
+
+.photo {
+  display: block;
+  margin: 0 auto;
 }
 
 .btn-start:hover {

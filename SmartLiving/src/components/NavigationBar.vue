@@ -1,7 +1,7 @@
 <template>
         <v-sheet class="nav-container" color="primary">
             <v-container fluid class="nav-content">
-                <img alt="Vue Logo" src="../assets/logo.jpeg" width="50">
+                <img alt="Vue Logo" src="logo.png" width="120">
                 <v-tabs class="text-left" v-model="tab" background-color="primary">
                     <v-tab class="tab px-15" :to="{name: 'Home'}"       value="home">Inicio</v-tab>
                     <v-tab class="tab px-15" :to="{name: 'Residence'}"  value="rooms">Habitaciones</v-tab>

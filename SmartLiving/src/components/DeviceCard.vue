@@ -212,12 +212,12 @@ function selectImg(){
         </v-card>
     </v-btn>
     <v-dialog v-model="display">
+        <v-btn @click="display=!display" style="position: relative;margin-top: 0px;margin-left: 1248px;" icon="mdi-close-box"></v-btn>
         <AC :device="props.device" :id="props.id"  v-if="props.type.name === 'ac'"/>
         <Door :device="props.device" :id="props.id" v-if="props.type.name === 'door'"/>
         <Light :device="props.device" :id="props.id" v-if="props.type.name === 'lamp'"/>
         <Fridge :device="props.device" :id="props.id" v-if="props.type.name === 'refrigerator'"/>
         <Vaccum :device="props.device" :id="props.id" :roomId="props.roomId" v-if="props.type.name === 'vacuum'"/>
-        <v-btn @click="display=!display" style="position: relative;margin-top: 0px;margin-left: 1248px;" icon="mdi-close-box"></v-btn>
     </v-dialog>
 </template>
 

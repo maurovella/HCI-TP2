@@ -16,8 +16,39 @@
                 :src="img"
                 cover
             >
-                <div class="delete-overlay">
-                    <v-btn icon="mdi-delete" @click="onDelete"/>  
+            <div class="delete-overlay">
+                    <v-dialog
+                        v-model="checkDelete"
+                        persistent
+                        width="1024">
+                        <v-card>
+                            <v-card-title>
+                                <span class="text-h5">¿Está seguro que desea eliminar la rutina?</span>
+                            </v-card-title>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn
+                                    color="blue-darken-1"
+                                    variant="text"
+                                    type="submit"
+                                    @click="checkDelete = false"
+                                    style="float: right"
+                                >
+                                    Cancelar
+                                </v-btn>
+                                <v-btn
+                                    color="blue-darken-1"
+                                    variant="text"
+                                    type="submit"
+                                    @click="onDelete"
+                                    style="float: right"
+                                >
+                                    Confirmar
+                                </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
+                    <v-btn icon="mdi-delete" @click.stop="checkDelete = !checkDelete"/>  
                 </div>
                 <div class="image-overlay">
                     <v-btn :icon="show ? 'mdi-heart' : 'mdi-heart-outline'" @click.prevent="show = !show"/>
@@ -79,10 +110,13 @@
 
 import { ref, computed } from "vue";
 import { useRoutineStore } from "@/stores/routineStore";
+import { useDeviceStore } from "../stores/deviceStore";
 const show = ref(false);
 const dialog = ref(false);
 const result = ref(null)
 const routineStore = useRoutineStore();
+const deviceStore = useDeviceStore();
+const checkDelete = ref(false);
 
 const props = defineProps({
     name: String,
