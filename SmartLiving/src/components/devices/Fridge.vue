@@ -4,9 +4,6 @@
         
                 <v-card class="mx-auto px-6" width="1200" height="500" style="background-color: #9c9c9c;overflow: hidden" box-sizing="border-box">
                     <v-row justify="center">
-                    <v-col cols="2">
-                        <v-card class="mt-5" variant="tonal">Modo: {{device.state.mode}} </v-card>
-                    </v-col>
                     <v-col cols="10">
                         <v-card class="fridge mx-auto">
                             <v-card width="310" height="180" class="micropantalla" style="margin-top: 20px; background-color: #9c9c9c; border-radius: 30px;">
@@ -19,7 +16,7 @@
                                 <p style="position: absolute;margin-left: 158px;font-size: 23px;font-family: 'Digital Font',emoji">Temp. Heladera</p>
                                 <p style="position: absolute;margin-top: 15px;margin-left: 190px;font-size: 60px;font-family: 'Digital Font',emoji">{{ device.state.temperature }}°C</p>
                                 <p style="position: absolute;margin-top: 15px;margin-left: 3px;font-size: 60px;font-family: 'Digital Font',emoji">{{ device.state.freezerTemperature }}°C</p>
-
+                                <p style="position: absolute;margin-top: 100px;margin-left: 80px;font-size: 30px;font-family: 'Digital Font',emoji">Mode: {{ device.state.mode }}</p>
                             </v-card>
 
                             <v-container style="position: absolute;margin-left: 30px;margin-top: 300px ">

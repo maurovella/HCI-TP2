@@ -1,10 +1,10 @@
 <template>
     <div class="text-center">
                 <v-card>
-                    <p>Status:{{  props.device.state.status  }}<br>
-                        Mode:{{  props.device.state.mode  }}<br>
-                        Bateria:{{  props.device.state.batteryLevel  }}<br>
-                        Habitacion:{{  roomname  }}<br></p>
+                    <p>Status: {{  props.device.state.status  }}<br>
+                        Mode: {{  props.device.state.mode  }}<br>
+                        Bateria: {{  props.device.state.batteryLevel  }}<br>
+                        Habitacion: {{  roomname  }}<br></p>
                 <v-container>
                     <v-row justify="center">
                         <v-col cols="auto" style="position: absolute">
@@ -12,12 +12,6 @@
                             :disabled="props.device.state.batteryLevel < 5"
                             v-model="vacuum"
                             @click="turnOnOff"></v-switch>
-                        </v-col>
-                        <v-col cols="auto" sm="9">
-                            <v-btn :icon="isSelected ? 'mdi-heart' : 'mdi-heart-outline'" @click="isSelected=!isSelected" style="float: right"/>
-                        </v-col>
-                        <v-col cols="auto">
-                            <v-btn icon="mdi-delete"/>
                         </v-col>
                     </v-row>
                     <div class="d-flex align-center flex-column pa-10">
