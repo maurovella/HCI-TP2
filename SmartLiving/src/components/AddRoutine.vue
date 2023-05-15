@@ -22,12 +22,12 @@
                     >
                         <v-text-field
                                 v-model="nombre_rutina"
-                                :rules="[required]"
+                                :rules="[name_rules]"
                                 class="messi"
                                 clearable
                                 label="Nombre de la rutina*"
                                 counter
-                                maxlength="20"
+                                maxlength="60"
                         ></v-text-field>
 
                         <AddAction/>
@@ -48,7 +48,6 @@
                         <v-btn
                                 color="blue-darken-1"
                                 size="large"
-                                type="submit"
                                 variant="text"
                                 @click="onCancel"
                                 style="float: right"
@@ -81,9 +80,21 @@
         resetForm();
     }
 
-    function required (v) {
-        return !!v || 'Field is required';
+    function name_rules(v) {
+    const regex = /^[a-zA-Z0-9_\s]+$/;
+    required(v);
+    if (v.length < 3 || v.length > 60) {
+        return 'Name must be 3-60 characters long';
     }
+    if (!regex.test(v)) {
+        return 'Only letters, numbers, underscore, and space are allowed';
+    }
+    return true;
+}
+
+function required(v) {
+    return !!v || 'Field is required';
+}
 
     function onCancel () {
         resetForm();

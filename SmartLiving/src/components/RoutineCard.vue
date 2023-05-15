@@ -13,7 +13,7 @@
             <v-img
                 class="align-end text-white"
                 height="200"
-                :src="img"
+                src="rutina.png"
                 cover
             >
             <div class="delete-overlay">
@@ -53,7 +53,7 @@
                 <div class="image-overlay">
                     <v-btn :icon="show ? 'mdi-heart' : 'mdi-heart-outline'" @click.prevent="show = !show"/>
                 </div>
-                <v-card-title style="color:black">{{ name }}</v-card-title>
+                <v-card-title style="color:black;background-color: white;">{{ name }}</v-card-title>
             </v-img>
             
         
@@ -94,7 +94,7 @@
             
             <v-card-actions>
                 <div> 
-                    <v-btn style="position: absolute;margin-top: -45px" color="orange"
+                    <v-btn style="position: absolute;margin-top: -20px;background-color: #535211;" color="orange"
                     @click="onExecute">
                         Ejecutar
                     </v-btn>
