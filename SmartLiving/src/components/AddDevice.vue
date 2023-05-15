@@ -11,12 +11,12 @@
             <v-form v-model="form" @submit.prevent="onSubmit">
               <v-text-field
                 v-model="nombre_disp"
-                :rules="[required]"
+                :rules="[name_rules]"
                 class="messi"
                 clearable
                 label="Nombre del dispositivo*"
                 counter
-                maxlength="20"
+                maxLength="60"
               ></v-text-field>
   
               <v-select
@@ -113,7 +113,21 @@
     type.value = null;
   };
   
-  const required = (v) => !!v || 'Field is required';
+  function name_rules(v) {
+    const regex = /^[a-zA-Z0-9_\s]+$/;
+    required(v);
+    if (v.length < 3 || v.length > 60) {
+        return 'Name must be 3-60 characters long';
+    }
+    if (!regex.test(v)) {
+        return 'Only letters, numbers, underscore, and space are allowed';
+    }
+    return true;
+}
+
+function required(v) {
+    return !!v || 'Field is required';
+}
   
   function setResult(r) {
     result.value = JSON.stringify(r, null, 2);

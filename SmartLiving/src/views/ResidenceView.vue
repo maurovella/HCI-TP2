@@ -100,7 +100,7 @@ roomStore.getAll();
                     <v-slide-group-item>
                         {{ room.type }}
                         <div class="slide-item">
-                            <RoomCard :name="room.name" :type="room.meta.type" :id="room.id"
+                            <RoomCard :name="room.name" :type="room.meta == null ? '' : room.meta.type " :id="room.id" :room="room"
                             :to="{path: '/room/'+room.id}"/>
                         </div>
                     </v-slide-group-item>
