@@ -1,7 +1,6 @@
 <template>
     <v-btn
         color="black"
-        href=""
         height="280"
         width="300"
     >
@@ -16,8 +15,39 @@
                 :src="img"
                 cover
             >
-                <div class="delete-overlay">
-                    <v-btn icon="mdi-delete" @click.prevent="onDelete"/>  
+            <div class="delete-overlay">
+                    <v-dialog
+                        v-model="checkDelete"
+                        persistent
+                        width="1024">
+                        <v-card>
+                            <v-card-title>
+                                <span class="text-h5">¿Está seguro que desea eliminar la habitación?</span>
+                            </v-card-title>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn
+                                    color="blue-darken-1"
+                                    variant="text"
+                                    type="submit"
+                                    @click="checkDelete = false"
+                                    style="float: right"
+                                >
+                                    Cancelar
+                                </v-btn>
+                                <v-btn
+                                    color="blue-darken-1"
+                                    variant="text"
+                                    type="submit"
+                                    @click="onDelete"
+                                    style="float: right"
+                                >
+                                    Confirmar
+                                </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
+                    <v-btn icon="mdi-delete" @click.prevent="checkDelete = !checkDelete"/>  
                 </div>
                 <div class="image-overlay">
                     <v-btn :icon="show ? 'mdi-heart' : 'mdi-heart-outline'" @click.prevent="show=!show"/>
@@ -49,22 +79,11 @@
                                         <v-text-field
                                             v-model="new_name"
                                             label="Nuevo nombre de la habitacion"
-                                            :rules="[required]"
+                                            :rules="[name_rules]"
                                             clearable
                                             counter
-                                            maxlength="20"
+                                            maxLength="60"
                                         ></v-text-field>
-                                    </v-col>
-                                    <v-col
-                                        cols="12"
-                                        sm="6"
-                                    >
-                                        <v-select
-                                            v-model="new_type"
-                                            :items="['Cocina', 'Living', 'Dormitorio', 'Baño', 'Jardin', 'Oficina' ,'Otro']"
-                                            label="Nuevo tipo de habitacion"
-                                            :rules="[required]"
-                                        ></v-select>
                                     </v-col>
                                 </v-row>
                             </v-container>
@@ -72,7 +91,7 @@
                             <v-btn
                                 color="red"
                                 variant="text"
-                                @click="onDelete"
+                                @click="checkDelete = !checkDelete"
                                 style="float: left"
                             >
                                 Eliminar
@@ -91,7 +110,6 @@
                             <v-btn
                                 color="blue-darken-1"
                                 variant="text"
-                                type="submit"
                                 @click="onCancel"
                                 style="float: right"
                             >
@@ -105,14 +123,9 @@
             <v-card-actions>
                 <v-btn style="position: absolute;margin-top: -45px" color="orange"
                        @click.prevent="dialog = !dialog">
-                    Edit
+                    Editar
                 </v-btn>
                 <v-spacer></v-spacer>
-
-                <v-btn
-                style="position: absolute;margin-top: -45px;margin-left: 235px"
-                    icon='mdi-chevron-up'
-                ></v-btn>
             </v-card-actions>
         </v-card>
     </v-btn>
@@ -146,9 +159,11 @@ const img = selectImg()
 const props = defineProps({
   name: String,
   type: String,
-    id: String
+    id: String,
+    room: Object
 });
 
+const checkDelete = ref(false);
 
 function onCancel () {
     dialog.value = !dialog.value;
@@ -161,8 +176,20 @@ function resetForm(){
     new_type.value=''
 }
 
-function required (v) {
-    return !!v || 'Field is required'
+function name_rules(v) {
+    const regex = /^[a-zA-Z0-9_\s]+$/;
+    required(v);
+    if (v.length < 3 || v.length > 60) {
+        return 'Name must be 3-60 characters long';
+    }
+    if (!regex.test(v)) {
+        return 'Only letters, numbers, underscore, and space are allowed';
+    }
+    return true;
+}
+
+function required(v) {
+    return !!v || 'Field is required';
 }
 
 function setResult(r) {
@@ -172,13 +199,12 @@ function setResult(r) {
 async function onSubmit () {
     dialog.value = false;
     // obtengo la habitacion
-    const modified = await roomStore.get(props.id);
-    // modifico los valores
+    const modified = await roomStore.get(props.id)
+    // modifico los valores 
     modified.name = new_name.value;
-    //modified.meta.type = new_type.value;
-    // guardo la habitacion
     try {
-        const _result = await roomStore.modify(new Room(props.id, modified.name, null))
+        const _result = await roomStore.modify(props.id,new Room(props.id, modified.name, modified.meta))
+        resetForm()
         setResult(_result)
     } catch (e) {
         setResult(e)

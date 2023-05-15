@@ -24,6 +24,8 @@ const props = defineProps({
     device: Object
 });
 
+const checkDelete = ref(false);
+
 let value = true;
 
 function accionRepetida() {
@@ -35,6 +37,22 @@ function accionRepetida() {
 }
 
 const intervalId = setInterval(accionRepetida, 3000);
+
+function name_rules(v) {
+    const regex = /^[a-zA-Z0-9_\s]+$/;
+    required(v);
+    if (v.length < 3 || v.length > 60) {
+        return 'Name must be 3-60 characters long';
+    }
+    if (!regex.test(v)) {
+        return 'Only letters, numbers, underscore, and space are allowed';
+    }
+    return true;
+}
+
+function required(v) {
+    return !!v || 'Field is required';
+}
 
 
 function setResult(r) {
@@ -53,6 +71,16 @@ const type_name = typesValues.find(function(element) {
     return element.typeId.id === props.type.id;
 }).name;
 
+function resetForm(){
+    form.value=false
+    new_name.value = ''
+}
+
+function onCancel () {
+    dialog.value = !dialog.value;
+    resetForm();
+}
+
 async function onSubmit () {
     dialog.value = false;
     const modified = await deviceStore.get(props.id);
@@ -63,11 +91,11 @@ async function onSubmit () {
     modified.meta = matchingTuple.typeId;
     try {
         const _result = await deviceStore.modify(new Device(props.id, modified.meta.type, modified.name, modified.meta))
+        resetForm()
         setResult(_result)
     } catch (e) {
         setResult(e)
     }
-    
 }
 
 async function onDelete() {
@@ -121,11 +149,42 @@ function selectImg(){
                 :src="img"
                 cover
             >
-                <div class="delete-overlay">
-                    <v-btn icon="mdi-delete" @click.prevent="onDelete"/>  
+            <div class="delete-overlay">
+                    <v-dialog
+                        v-model="checkDelete"
+                        persistent
+                        width="1024">
+                        <v-card>
+                            <v-card-title>
+                                <span class="text-h5">¿Está seguro que desea eliminar el dispositivo?</span>
+                            </v-card-title>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn
+                                    color="blue-darken-1"
+                                    variant="text"
+                                    type="submit"
+                                    @click="checkDelete = false"
+                                    style="float: right"
+                                >
+                                    Cancelar
+                                </v-btn>
+                                <v-btn
+                                    color="blue-darken-1"
+                                    variant="text"
+                                    type="submit"
+                                    @click="onDelete"
+                                    style="float: right"
+                                >
+                                    Confirmar
+                                </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
+                    <v-btn icon="mdi-delete" @click.stop="checkDelete = !checkDelete"/>  
                 </div>
                 <div class="image-overlay">
-                    <v-btn :icon="show ? 'mdi-heart' : 'mdi-heart-outline'" @click.prevent="show=!show"/>
+                    <v-btn :icon="show ? 'mdi-heart' : 'mdi-heart-outline'" @click.stop="show=!show"/>
                 </div>
                 <v-card-title >{{ name }}</v-card-title>
             </v-img>
@@ -156,19 +215,20 @@ function selectImg(){
                                         <v-text-field
                                             v-model="new_name"
                                             label="Nuevo nombre del dispositivo"
-                                            :rules="[required]"
+                                            :rules="[name_rules]"
                                             clearable
                                             counter
-                                            maxlength="20"
+                                            maxLength="60"
                                         ></v-text-field>
                                     </v-col>
                                 </v-row>
                             </v-container>
                             <br>
+                            
                             <v-btn
                                 color="red"
                                 variant="text"
-                                @click.prevent="onDelete"
+                                @click.stop="checkDelete = !checkDelete"
                                 style="float: left"
                             >
                                 Eliminar
@@ -187,8 +247,7 @@ function selectImg(){
                             <v-btn
                                 color="blue-darken-1"
                                 variant="text"
-                                type="submit"
-                                @click="dialog = false"
+                                @click="onCancel"
                                 style="float: right"
                             >
                                 Cancelar
@@ -199,15 +258,10 @@ function selectImg(){
                 </v-dialog>
             </v-expand-transition>
             <v-card-actions>
-                <v-btn style="position: absolute;margin-top: -45px" color="orange"
-                       @click.prevent="dialog = !dialog">
+                <v-btn style="position: absolute; margin-top: -45px" color="orange" @click.stop="dialog = !dialog">
                     Editar
                 </v-btn>
                 <v-spacer></v-spacer>
-
-                <v-btn style="position: absolute;margin-top: -45px;margin-left: 235px" 
-                    icon='mdi-chevron-up'
-                ></v-btn>
             </v-card-actions>
         </v-card>
     </v-btn>

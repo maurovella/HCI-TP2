@@ -11,8 +11,8 @@ export const useRoomStore = defineStore('room', () => {
         return result
     }
 
-    async function modify(room) {
-        const result = await RoomApi.modify(room)
+    async function modify(roomId,room) {
+        const result = await RoomApi.modify(roomId,room)
         await getAll()
         return result
     }

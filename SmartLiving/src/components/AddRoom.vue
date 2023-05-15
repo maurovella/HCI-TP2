@@ -22,12 +22,12 @@
                     >
                         <v-text-field
                             v-model="nombre_habitacion"
-                            :rules="[required]"
+                            :rules="[name_rules]"
                             class="messi"
                             clearable
                             label="Nombre de la habitación*"
                             counter
-                            maxlength="20"
+                            maxLength="60"
                         ></v-text-field>
 
                         <v-select
@@ -53,7 +53,6 @@
                         <v-btn
                             color="blue-darken-1"
                             size="large"
-                            type="submit"
                             variant="text"
                             @click="onCancel"
                             style="float: right"
@@ -86,7 +85,19 @@ function onSubmit(){
     resetForm();
 }
 
-function required (v) {
+function name_rules(v) {
+    const regex = /^[a-zA-Z0-9_\s]+$/;
+    required(v);
+    if (v.length < 3 || v.length > 60) {
+        return 'Name must be 3-60 characters long';
+    }
+    if (!regex.test(v)) {
+        return 'Only letters, numbers, underscore, and space are allowed';
+    }
+    return true;
+}
+
+function required(v) {
     return !!v || 'Field is required';
 }
 
